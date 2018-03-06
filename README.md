@@ -1,3 +1,2 @@
-# kingdom-of-aerune
-
-This is a readme file.
+# kingdom-of-aerune-game
+Text-based game
