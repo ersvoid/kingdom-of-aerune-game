@@ -97,9 +97,8 @@ magic_staff = Item("Staff of Magic", 8, 500, types[4], element="Magic")
 fire_staff = Item("Staff of Fire", 8, 500, types[4], element="Fire")
 death_staff = Item("Staff of Death", 8, 500, types[4], element="Death")
 sleep_staff = Item("Staff of Sleep", 8, 500, types[4], element="Alter")
-heal_staff = Item("Staff of Heal", 8, 500, types[4], element="Heal")
 
-staffs = [magic_staff, fire_staff, death_staff, sleep_staff, heal_staff]
+staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 
 # Quest Items = type[5]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
