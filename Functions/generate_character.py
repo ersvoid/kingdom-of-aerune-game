@@ -7,7 +7,7 @@ from Classes.npc import NPC
 # Generate the player character
 player_magic = [magic_missile, heal]
 player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0]]}
-shop_items = [weapons]
+shop_items = weapons
 
 
 def initial_player():
@@ -52,7 +52,7 @@ def random_char(gold, m, w, a=1, b=5, c=12):
     r_wis = randint(b, c) + a
     r_cha = randint(b, c) + a
     r_con = randint(b, c) + a
-    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, [m], [w], gold, lvl=a)
+    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a)
     rand_char.get_xp(10 * a)
     return rand_char
 

@@ -26,17 +26,17 @@ class NPC:
                 print("Do you want to trade weapons?")
                 print("1. Yes")
                 print("2. No")
-                val = input("Well? ")
-                while val != "1" or "2":
-                    val = input("Well? ")
-                    if val == "1":
-                        char.money += char.items["weapon"].cost
-                        char.money -= item.cost
-                        self.money += item.cost
-                        char.items["weapon"] = item
-                        return self.money, self.items, char.items, char.money
-                    elif val == "2":
-                        print("Okay, that's fine.")
+                val = str(input("Well? "))
+                if val == "1":
+                    char.money += char.items["weapon"].cost
+                    char.money -= item.cost
+                    self.money += item.cost
+                    char.items["weapon"] = item
+                    return self.money, self.items, char.items, char.money
+                elif val == "2":
+                    print("Okay, that's fine.")
+                else:
+                    return
         else:
             print("You don't have enough gold!")
             int(input("Choose an item to buy: ")) - 1

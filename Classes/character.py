@@ -2,11 +2,11 @@ from random import randint
 
 
 def build_hp(char):
-    return 10 + 10 * char.get_con()
+    return 10 + char.get_con()
 
 
 def build_mp(char):
-    return 10 + 10 * char.get_wis()
+    return 10 + char.get_wis()
 
 
 class Character:
@@ -115,11 +115,21 @@ class Character:
             pass
 
     def damage(self):
-        val = randint(1, self.items["weapon"].item_value()) + self.get_str()
-        if val < 0:
-            return 0
-        else:
-            return val
+        if self.items["weapon"].type == "weapon":
+            val = randint(1, self.items["weapon"].item_value()) + self.get_str()
+            if val < 0:
+                return 0
+            else:
+                return val
+        elif self.items["weapon"].type == "staff":
+            if self.items["weapon"].elem == "Magic":
+                pass
+            elif self.items["weapon"].elem == "Fire":
+                pass
+            elif self.items["weapon"].elem == "Death":
+                pass
+            elif self.items["weapon"].elem == "Alter":
+                pass
 
     def reset(self):
         self.hp = self.maxhp
