@@ -44,7 +44,7 @@ def random_npc(prof="npc"):
         return rand
 
 
-def random_char(gold, m, w, a=1, b=5, c=12):
+def random_char(gold, m, w, x, a=1, b=5, c=12):
     char_name = choice(first_name) + " " + choice(last_name)
     r_str = randint(b, c) + a
     r_int = randint(b, c) + a
@@ -52,7 +52,7 @@ def random_char(gold, m, w, a=1, b=5, c=12):
     r_wis = randint(b, c) + a
     r_cha = randint(b, c) + a
     r_con = randint(b, c) + a
-    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a)
+    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
     rand_char.get_xp(10 * a)
     return rand_char
 
@@ -80,5 +80,5 @@ def check_xp(char):
     elif char.xp >= 10 * lvl:
         char = level_player(char)
         print("Your power has increased!")
-        char.xp = 0
+        char.xp -= 10 * lvl
         return char

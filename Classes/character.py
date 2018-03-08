@@ -10,7 +10,7 @@ def build_mp(char):
 
 
 class Character:
-    def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, money=0, lvl=1):
+    def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, money=0, lvl=1, _id="player"):
         self.name = name
         self.str = _str
         self.int = _int
@@ -30,6 +30,7 @@ class Character:
         self.quest = 0
         self.xp = 0
         self.lvl = 1
+        self.id = _id
 
     def display_name(self):
         print("I am called ", self.name, "!")

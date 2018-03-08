@@ -26,23 +26,23 @@ leader_items = {"weapon": weapons[3]}
 troll_items = {"weapon": weapons[4]}
 wizard_items = {"staff": staffs[1]}
 
-bandit1 = random_char(0, [], bandit_items)
-bandit2 = random_char(0, [], bandit_items)
-bandit3 = random_char(0, [], bandit_items)
-bandit4 = random_char(0, [], bandit_items)
-bandit5 = random_char(0, [], bandit_items)
+bandit1 = random_char(0, [], bandit_items, x="bandit")
+bandit2 = random_char(0, [], bandit_items, x="bandit")
+bandit3 = random_char(0, [], bandit_items, x="bandit")
+bandit4 = random_char(0, [], bandit_items, x="bandit")
+bandit5 = random_char(0, [], bandit_items, x="bandit")
 
-sentry = random_char(100,  [], guard_items, a=8)
-bodyguard = random_char(100,  [], guard_items, a=10)
+sentry = random_char(100,  [], guard_items, a=8, x="leader")
+bodyguard = random_char(100,  [], guard_items, a=10, x="leader")
 
-bandit_leader = random_char(200,  [], leader_items, a=5)
-fake_mayor = random_char(500, [], leader_items, a=6)
-new_leader = random_char(100, [], leader_items, a=7)
+bandit_leader = random_char(200,  [], leader_items, a=5, x="leader")
+fake_mayor = random_char(500, [], leader_items, a=6, x="leader")
+new_leader = random_char(100, [], leader_items, a=7, x="leader")
 
-troll = random_char(500,  [], troll_items, a=5)
+troll = random_char(500,  [], troll_items, a=5, x="bandit")
 
-wizard = random_char(1000,  m_lst, wizard_items, a=10)
-wizard_apprentice = random_char(1000,  m_lst, wizard_items, a=5)
+wizard = random_char(1000,  m_lst, wizard_items, a=10, x="wizard")
+wizard_apprentice = random_char(1000,  m_lst, wizard_items, a=5, x="wizard")
 
 bandits = [bandit1, bandit2, bandit3, bandit4, bandit5]
 guards = [sentry, bodyguard]

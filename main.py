@@ -15,4 +15,5 @@ while game_start:
             if _bool:
                 player.quest += 1
                 player = check_xp(player)
-                print(player.quest)
+                player = check_xp(player)
+                player = check_xp(player)

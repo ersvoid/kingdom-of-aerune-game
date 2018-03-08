@@ -132,11 +132,28 @@ def enemy_turn(enemy, player):
         return
     if enemy.sleep:
         return
-    if player.ac_rating() < enemy.attack():
-        print(enemy.name, " attacks ", player.name)
-        player.take_damage(enemy.damage())
-    else:
-        print(enemy.name, " missed!")
+    if enemy.id == "bandit":
+        if player.ac_rating() < enemy.attack():
+            print(enemy.name, " attacks ", player.name)
+            player.take_damage(enemy.damage())
+        else:
+            print(enemy.name, " missed!")
+    elif enemy.id == "leader":
+        if (enemy.hp / enemy.maxhp) * 100 < 30:
+            enemy.heal((enemy.items["potions"][0].item_value()))
+        else:
+            if player.ac_rating() < enemy.attack():
+                print(enemy.name, " attacks ", player.name)
+                player.take_damage(enemy.damage())
+            else:
+                print(enemy.name, " missed!")
+    elif enemy.id == "wizard":
+        if (enemy.hp / enemy.maxhp) * 100 < 30:
+            enemy.heal((enemy.items["potions"][0].item_value()))
+        elif (enemy.mp / enemy.maxmp) * 100 < 30:
+            enemy.rest((enemy.items["elixirs"][0].item_value()))
+        else:
+            player.take_damage(enemy.damage())
 
 
 def battle(loc, player):
@@ -318,7 +335,6 @@ def mayor_hall(loc, player, dungeon, a=a1, b=100, c=c1, d=d1):
             print(d)
             hall_on = False
             quest_func(dungeon, player)
-            print(player.quest)
         elif val == 2:
             print("Goodbye.")
             hall_on = False
@@ -332,11 +348,9 @@ def mayor_hall(loc, player, dungeon, a=a1, b=100, c=c1, d=d1):
     elif player.quest % 2 != 0:
         print(a)
         player.win_gold(b)
-        print(player.quest)
         return True
     elif player.quest % 2 == 0:
         print(d)
-        print(player.quest)
         loc.pop[0].talk()
         print("1. Yes")
         print("2. No")
@@ -345,7 +359,6 @@ def mayor_hall(loc, player, dungeon, a=a1, b=100, c=c1, d=d1):
             print(c)
             hall_on = False
             quest_func(dungeon, player)
-            print(player.quest)
             return hall_on
         elif val == 2:
             print("Goodbye.")
