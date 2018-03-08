@@ -1,6 +1,6 @@
 from Classes.character import Character
 from Classes.magic import magic_missile, heal
-from Classes.inventory import weapons, potions, elixirs, scrolls, staffs
+from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs
 from random import randint, choice
 from Classes.npc import NPC
 
@@ -37,7 +37,7 @@ def random_npc(prof="npc"):
         rand = NPC(name=char_name, items=[], money=100, phrase=mayor_phrase)
         return rand
     elif prof == "inn":
-        rand = NPC(name=char_name, items=[potions, elixirs], money=200, phrase=inn_phrase)
+        rand = NPC(name=char_name, items=inn_items, money=200, phrase=inn_phrase)
         return rand
     else:
         rand = NPC(name=char_name, items=[], money=5, phrase=npc_phrase)

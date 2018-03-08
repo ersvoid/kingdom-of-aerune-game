@@ -87,21 +87,40 @@ def player_turn(player, enemy):
                     print("The enemy is sleeping.")
     elif choice == "3":
         c = 1
-        for i in player.items[1:]:
+        for i in player.items["items"]:
             print("{}. {} X {}".format(c, i.name, i.amt))
             c += 1
-        choice = int(input("Choose an item: "))
-        p_item = player.items[choice]
+        choice = int(input("Choose an item: ")) - 1
+        p_item = player.items["items"][choice]
         if not p_item.check_item():
             print("You have no more of that item!")
         else:
             p_item.use_item()
-            if p_item.type == "p":
+            if p_item.type == "potion":
                 player.heal(p_item.item_value())
-            elif p_item.type == "s":
+            elif p_item.type == "elixir":
+                player.rest(p_item.item_value())
+            elif p_item.type == "scroll":
                 if p_item.elem == "Fire":
                     enemy.fire = 5
                     enemy.take_damage(p_item.item_value())
+                elif p_item.elem == "Magic":
+                    enemy.take_damage(p_item.item_value())
+                elif p_item.elem == "Heal":
+                    player.heal(p_item.item_value())
+                elif p_item.elem == "Death":
+                    if enemy.will() < player.will():
+                        enemy.hp = 0
+                        print("A black ray pierces the heart of your enemy...")
+                    else:
+                        print("A black ray shoots from your fingers...")
+                        enemy.take_damage(p_item.item_value())
+                elif p_item.elem == "Alter":
+                    if enemy.will() >= player.will():
+                        print("Your opponent is unaffected by your spell.")
+                    else:
+                        enemy.sleep = 5
+                        print("The enemy is sleeping.")
     elif choice == "4":
         print("You try to run but cannot escape!")
     else:

@@ -102,3 +102,6 @@ staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 
 # Quest Items = type[5]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
+
+
+inn_items = [pot_light, pot_med, pot_heav, elix_light, elix_med, elix_heav]
