@@ -4,9 +4,7 @@ from Classes.inventory import short_sword
 from Classes.maps import dungeons
 
 player = initial_player()
-opponent = dungeons[0].pop[0]
 player.display_stats()
-opponent.display_stats()
-battle(dungeons[0], player)
+player.xp = 10
 player = check_xp(player)
 player.display_stats()

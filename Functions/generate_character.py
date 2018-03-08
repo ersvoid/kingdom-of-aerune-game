@@ -23,7 +23,7 @@ last_name = ["Adams", "Brown", "Clark", "Davis", "Evans", "Fisher", "Green", "Ha
              "Lewis", "Miller", "Nelson", "Owen", "Paulson", "Quakers", "Robinson", "Smith", "Taylor", "Utley",
              "Vincent", "Williams", "Xavier", "Young", "Zaragoza"]
 shop_phrase = "'Hello, welcome to my shop!'"
-mayor_phrase = "'Hello, I am the leader of this town.'"
+mayor_phrase = "WOULD YOU LIKE TO CONTINUE YOUR QUEST?"
 inn_phrase = "'Good day! Would you like a room? or perhaps just a strong drink?'"
 npc_phrase = "'Hello.'"
 
@@ -64,7 +64,7 @@ def level_player(char):
     n_str = char.str + randint(0, 5) + 1
     n_int = char.int + randint(0, 5) + 1
     n_dex = char.dex + randint(0, 5) + 1
-    n_wis = char.wis + randint(0, 5) + 1
+    n_wis = char.wis + randint(0, 5) + 5
     n_cha = char.cha + randint(0, 5) + 1
     n_con = char.con + randint(0, 5) + 5
     new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, char.money)

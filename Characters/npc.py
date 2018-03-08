@@ -42,9 +42,10 @@ new_leader = random_char(100, [], leader_items, a=7)
 troll = random_char(500,  [], troll_items, a=5)
 
 wizard = random_char(1000,  m_lst, wizard_items, a=10)
+wizard_apprentice = random_char(1000,  m_lst, wizard_items, a=5)
 
-bandits = [bandit1, bandit2, bandit3]
+bandits = [bandit1, bandit2, bandit3, bandit4, bandit5]
 guards = [sentry, bodyguard]
 leaders = [bandit_leader, fake_mayor, new_leader]
 trolls = [troll]
-wizards = [wizard]
+wizards = [wizard, wizard_apprentice]

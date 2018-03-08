@@ -39,8 +39,8 @@ at least, shoved into a corner, a wooden chest beside it, and one chair next to 
 villager stands inside, surprised at your intrusion."""
 h0_house = Location("House", "h0", h0_intro, [town_pop[3]], [])
 
-h1_intro = """As you approach the house in the center of the village, an old man walks out of the doorway."""
-h1_hall = Location("Hall", "h1", h1_intro, [town_pop[0]], [])
+h1_intro = """QUEST MENU"""
+h1_hall = Location("QUEST", "h1", h1_intro, [town_pop[0]], [])
 
 # Inn
 i0_intro = """The inn is the largest building in town, though it is still one story it has a massive stone fireplace in
@@ -120,84 +120,108 @@ q0_i3 = """The village fades in the distance behind you and soon all you can hea
 wild wind blowing over the grass."""
 q0_o1 = "You have killed the bridge troll!"
 q0_o2 = "You begin the walk back to the village."
-q3_dung = Location("Bridge", "d3", d3_intro, trolls, [])
+q3_dung = Location("Bridge", "d3", d3_intro, trolls, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
 d4_intro = """The town has been deserted, but you see smoke drifting from one of the houses.  You decide to 
 investigate."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
-q0_o1 = "You have killed the bandit!"
+q0_i1 = "You leave the bridge and all the death behind..."
+q0_i2 = """You try to forget the images racing through your mind: all the bodies strewn about, ripper apart, the 
+fetid horror with the blood dripping down his lips..."""
+q0_i3 = """As the sun falls, the shadows lengthen and play tricks on your tired mind... Every tree is another 
+abomination reaching to taste your flesh... As you round a bend, you are relieved to spot the next village on a small 
+hill.  The village looks dark behind a tall palisade, but the main gate is open.  You pass through the remnants of an 
+older wall, made of stone and ruined, at the base of the hill.  You begin the slow walk up to and through the main 
+gate."""
+q0_o1 = "You have killed the ruthless vagabond!"
 q0_o2 = "You begin the walk back to the village."
-q4_dung = Location("Village Hall", "d4", d4_intro, leaders, [])
+q4_dung = Location("Village Hall", "d4", d4_intro, leaders, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
 d5_intro = """You have decided to explore the area and set out from the gates of town.  You have been wandering around 
 the countryside for about an hour when you realize you are being watched.  You brandish your weapon and call out for 
 the coward."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
-q0_o1 = "You have killed the bandit!"
+q0_i1 = """The town is a graveyard.  There are not many people left besides those with the means to defend themselves.  
+The bodies piled up in the streets and there are not enough people to dig graves, so the remaining villages 
+constructed a large funeral pyre and the bodies laid inside..."""
+q0_i2 = """Now that there are so few remaining, the town, and the mayor, look to you, their savior, for guidance.  You 
+are not sure how you can be of help with the town itself, but you assure the people that you will remain for awhile 
+and patrol the area."""
+q0_i3 = """This new life is becoming more than you had imagined.  Now burdened with responsibility, you see why so 
+many turn to thievery and murder for profit and power.  You smile to yourself...  Maybe in the next life, you think."""
+q0_o1 = "You have killed the new Bandit Leader!"
 q0_o2 = "You begin the walk back to the village."
-q5_dung = Location("Forest", "d5", d5_intro, leaders, [])
+q5_dung = Location("Forest", "d5", d5_intro, leaders, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
-d6_intro = """You are awoken by the sound of the stuck, wooden door of your room scraping the floor..."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
-q0_o1 = "You have killed the bandit!"
+d6_intro = """One day, while on patrol, you are caught off guard as you round small grouping of trees.  A pale, thin 
+man with deep bags under his eyes jumps from the trees and stands in your way."""
+q0_i1 = """You make a new life for yourself in this village.  You have become the sheriff and sole protector of these
+people.  Their lives depend on you.  You awake every morning in your own home now, gifted to you by the people of the 
+town for saving them.  Its not much and in fact is probably the worst house in town, but you are not bothered.  You 
+will not remain in the place forever.  Soon, greater adventure will call to you."""
+q0_i2 = """Your daily patrol takes you out and away from town, but never too far.  You make a point to travel to the 
+bridge every few days to ensure that no new demon has taken refuge there.  Soon, messengers from the previous 
+village return and trade begins and a new life is born in the village you saved."""
+q0_i3 = """Every week or so, a new person arrives to make a new life for themselves on the frontier, undeterred by the 
+recent horrors visited upon this town.  Quite like you, you suppose."""
+q0_o1 = "You have killed the wizard's apprentice!"
 q0_o2 = "You begin the walk back to the village."
-q6_dung = Location("Inn", "61", d6_intro, bandits, [])
+q6_dung = Location("Inn", "61", d6_intro, bandits, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
 d7_intro = """Everyone in town knows where the abandoned tower in the woods is located.  They point you in the right 
-direction and you have barely trekked for an hour when you see the crumbling structure rising through the tree tops.  
-As you get nearer, you notice a guard posted out front.  You ready yourself as you approach..."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
+direction and you have barely trekked for an hour when you see the crumbling structure rising through the tree tops on 
+a distant hill.  You make your way to the bottom of the hill and find no clear path to the top.  You will have to climb.
+Luckily, the hill is actaully an uplifted block of layered quartzarenite with cross-cutting faults at around 70 degree 
+to the bedding plane.  So, fairly easily crack climbing.  Though, it takes you several hours to get to the top because 
+you didn't realize you had a fear of heights.  You climb over the edge and collapse beside a tree. 
+\n
+You fall asleep...\n
+You wake up from a dream of your first kiss back at the academy...\n
+You drink from your canteen and prepare yourself.  You begin your final approach on the tower.  As you get nearer, you 
+notice a guard posted out front.  You draw your weapon as you approach..."""
+q0_i1 = """You had no idea that a frontier savage could learn the fine art and science of magic!  Magic is taught in the
+inner empire only, by law.  In fact, you had to secure several permits to travel outside the inner empire as a 
+magic-user..."""
+q0_i2 = """Is there some form of unknown, primal magic out here in the wild?  No, no that can't be it, you think.  The
+wild man had a staff.  The same staff that they make in the magic academy!  This wild man could never had been an 
+academic!  He could hardly control the staff he was wielding!"""
+q0_i3 = """You decide to ask around town about the man and his staff.  Where could he have gotten it?  Where there any 
+mages out here that they knew of? Perhaps, mages they thought were killed or had to be dead by now?  You only get back 
+one answer: 'All the bad people go to the tower and come back evil...'"""
 q0_o1 = "You have killed the bandit!"
 q0_o2 = "You begin the walk back to the village."
-q7_dung = Location("Wizard's Tower Entrance", "d7", d7_intro, guards, [])
+q7_dung = Location("Wizard's Tower Entrance", "d7", d7_intro, guards, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
 d8_intro = """You walk through the ruined archway and descend into a recessed chamber lined with tapestries.  There is 
 only a single man sitting in a chair in the center of the room.  He looks up from his book and smiles at you..."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
-q0_o1 = "You have killed the bandit!"
+q0_i1 = """The sentry is dead at your feet.  He was not a mage.  The tower rises above you.  Now that you see it 
+up close, you realize that only the top layers have crumbled away.  There must be at least four levels of usable 
+rooms in this tower..."""
+q0_i2 = """The tower is made of some kind of black stone, maybe volcanic, but it does not feel like natural stone.  
+The tower entrance is a large archway of crumbling, white stones each carved with a large fade rune."""
+q0_i3 = """The people in the village are not safe with a wild mage teaching backwoods savages the laws of the 
+multiverse.  You are not safe until this evil is stopped."""
+q0_o1 = "You have killed the wizard's bodyguard!"
 q0_o2 = "You begin the walk back to the village."
-q8_dung = Location("Wizard's Tower Foyer", "d8", d8_intro, guards, [])
+q8_dung = Location("Wizard's Tower Foyer", "d8", d8_intro, guards, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
-d9_intro = """Upon the death of the guard, you search the chamber for any clues.  You notice one of the tapestries is 
+d9_intro = """You know this man...\n
+This outcast was from before your time at the academy, but everyone in the empire knows him.  He was ousted for 
+inhumane treatment of his students and practicing forbidden magics.  He even killed another professor when he left, 
+vowing to return, or worse, he was recorded saying. It seems he had been up to worse, lately.\n
+You draw your weapon, hopefully, not for the last time."""
+q0_i1 = """Upon the death of the guard, you search the chamber for any clues.  You notice one of the tapestries is 
 blowing in the wind, but the room is still.  You pull the rotting curtain aside and reveal a long, slowly winding 
 staircase leading upwards.  You begin to climb the rough-hewn stone steps and are surprised by the increasing warmth.  
 The staircase opens onto a large sanctuary with broken wooden pews strewn about and large stone urn in the center of 
 the chamber.  There is a very tall and very thin man with long white hair standing at the chalice, chanting to 
 himself."""
-q0_i1 = "You have decided to embark on your first quest and save the town from bandits!"
-q0_i2 = """You make your way out of town as the villagers cheer you on.  News has spread quickly of your 
-heroism.  You set upon the dirt path towards the woods.  You are halfway there when you notice another
-trail diverging off and entering the woods in a different location than the main path.  The trail is faint, 
-but looks fresh.  You follow the trail into the woods."""
-q0_i3 = "The sky darkens, but now you can see a faint glimmer in front of you."
-q0_o1 = "You have killed the bandit!"
+q0_i2 = """He has not noticed you yet.  He wears the faded robes of a professor of arcane science from the academy.  
+This is the evil that has pervade this land.  An old teacher..."""
+q0_i3 = """'So you killed my apprentice?' he doesn't even look up. 'I thought as much, but I did hope he would kill 
+you for your intrusion into my plans.  I need that village.  I'm tired of being in this tower!  I need a real 
+stronghold along the trade routes to start my own school of magic!'"""
+q0_o1 = "You have killed the wizard!"
 q0_o2 = "You begin the walk back to the village."
-q9_dung = Location("Wizard's Tower Sanctuary", "d9", d9_intro, wizards, [])
+q9_dung = Location("Wizard's Tower Sanctuary", "d9", d9_intro, wizards, [], q2_i1, q2_i2, q2_i3, q2_o1, q2_o2)
 
 towns = [t0_town, t1_town]
 shops = [s0_shop]
