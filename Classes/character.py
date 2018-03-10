@@ -2,16 +2,18 @@ from random import randint
 
 
 def build_hp(char):
-    return 10 + char.get_con()
+    return
 
 
 def build_mp(char):
-    return 10 + char.get_wis()
+    return char.get_lvl() * 10 + char.lvl * char.get_wis()
 
 
 class Character:
+
     def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, money=0, lvl=1, _id="player"):
         self.name = name
+        self.lvl = lvl
         self.str = _str
         self.int = _int
         self.dex = dex
@@ -20,17 +22,19 @@ class Character:
         self.con = con
         self.magic = magic
         self.items = items
-        self.maxhp = build_hp(self)
+        self.maxhp = self.lvl * 10 + self.lvl * self.con
         self.hp = self.maxhp
-        self.maxmp = build_mp(self)
+        self.maxmp = self.lvl * 10 + self.lvl * self.wis
         self.mp = self.maxmp
         self.sleep = False
         self.fire = 0
         self.money = money
         self.quest = 0
         self.xp = 0
-        self.lvl = 1
         self.id = _id
+
+    def get_lvl(self):
+        return self.lvl
 
     def display_name(self):
         print("I am called ", self.name, "!")
@@ -124,13 +128,13 @@ class Character:
                 return val
         elif self.items["weapon"].type == "staff":
             if self.items["weapon"].elem == "Magic":
-                pass
+                return 10
             elif self.items["weapon"].elem == "Fire":
-                pass
+                return 25
             elif self.items["weapon"].elem == "Death":
-                pass
+                return 15
             elif self.items["weapon"].elem == "Alter":
-                pass
+                return self.will()
 
     def reset(self):
         self.hp = self.maxhp

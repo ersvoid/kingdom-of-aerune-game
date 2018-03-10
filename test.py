@@ -1,10 +1,10 @@
 from Functions.game import battle
-from Functions.generate_character import initial_player, random_char, check_xp
-from Classes.inventory import short_sword
+from Functions.generate_character import Character, player_items, player_magic
 from Classes.maps import dungeons
 
-player = initial_player()
+
+player = Character("Eric Stinson", 10, 500, 500, 500, 500, 500, player_magic, player_items)
 player.display_stats()
-player.xp = 10
-player = check_xp(player)
-player.display_stats()
+
+
+battle(dungeons[9], player)

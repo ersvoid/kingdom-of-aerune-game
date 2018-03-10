@@ -1,11 +1,11 @@
 from Classes.character import Character
-from Classes.magic import magic_missile, heal
+from Classes.magic import magic_missile, heal, heal2, heal3, firebolt, sleep, paralyze
 from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs
 from random import randint, choice
 from Classes.npc import NPC
 
 # Generate the player character
-player_magic = [magic_missile, heal]
+player_magic = [magic_missile, heal, sleep, firebolt, heal2, paralyze, heal3]
 player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0]]}
 shop_items = weapons
 
@@ -53,7 +53,7 @@ def random_char(gold, m, w, x, a=1, b=5, c=12):
     r_cha = randint(b, c) + a
     r_con = randint(b, c) + a
     rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
-    rand_char.get_xp(10 * a)
+    rand_char.get_xp(15 * a)
     return rand_char
 
 # Generate a new Player Character with a Higher Level
@@ -61,12 +61,12 @@ def random_char(gold, m, w, x, a=1, b=5, c=12):
 
 def level_player(char):
     char.lvl += 1
-    n_str = char.str + randint(0, 5) + 1
-    n_int = char.int + randint(0, 5) + 1
-    n_dex = char.dex + randint(0, 5) + 1
+    n_str = char.str + randint(0, 5) + 5
+    n_int = char.int + randint(0, 5) + 5
+    n_dex = char.dex + randint(0, 5) + 5
     n_wis = char.wis + randint(0, 5) + 5
-    n_cha = char.cha + randint(0, 5) + 1
-    n_con = char.con + randint(0, 5) + 5
+    n_cha = char.cha + randint(0, 5) + 5
+    n_con = char.con + randint(0, 5) + 10
     new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, char.money)
     new.quest = char.quest
     new.lvl = char.lvl
@@ -78,7 +78,7 @@ def check_xp(char):
     if char.xp < 10 * lvl:
         return char
     elif char.xp >= 10 * lvl:
-        char = level_player(char)
-        print("Your power has increased!")
         char.xp -= 10 * lvl
-        return char
+        new_char = level_player(char)
+        print("Your power has increased!")
+        return new_char

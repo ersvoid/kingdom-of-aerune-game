@@ -51,7 +51,7 @@ i0_inn = Location("Inn", "i0", i0_intro, [town_pop[2]], [])
 t0_town_list = [s0_shop, i0_inn, h0_house, h1_hall]
 
 # Towns
-t0_intro = """You arrive on the outskirts of a small village of about ten small cottages.  The smell of firewood 
+t0_intro = """You stand at the entrance of a small village of about ten small cottages.  The smell of firewood 
 and food drifts lazily from several of the stone chimneys.  A loud clank followed by a metallic ring echoes down the 
 the only street from a blacksmith's anvil outside one of the cottages."""
 t0_town = Location("Town", "t0", t0_intro, town_pop, t0_town_list)
@@ -74,19 +74,19 @@ q0_o1 = "You have killed the bandit!"
 q0_o2 = "You begin the walk back to the village."
 q0_dung = Location("Bandit Campsite", "d0", q0_intro, bandits, [], q0_i1, q0_i2, q0_i3, q0_o1, q0_o2)
 
-d1_intro = """You arrive back at the campsite in the woods.  This time there are two other bandits, sitting forlornly 
-around the dying fire."""
-q1_i1 = """You feel a sense of urgency to deal with the remaining bandits in fear of their reprisals upon the 
-town.  You hastily make for the road again and are quickly within range of the trees."""
-q1_i2 = """You know your way now and run through the trees.  You can hear voices up ahead. It sounds like two men 
-arguing.  You slow down and listen from behind a tree.
-'We should leave this area! They know where we are and they'll be back to kill the rest of us!'
-'You can leave if you like, coward! I will stay here and kill everyone in that town if I have too!'
-You decide that listening behind a tree isn't why you traveled halfway across the empire...
-You jump out from behind the tree and draw forth your weapon."""
-q1_i3 = """There are two men standing beside a campfire and three tents.  One of the men, grabs his pack and heads into
+d1_intro = """There are two men standing beside a campfire and three tents.  One of the men, grabs his pack and heads into
 the trees, running as fast as he can through the bramble.  The other man, sighs, turns to face you, and pulls out his
 sword."""
+q1_i1 = """You feel a sense of urgency to deal with the remaining bandits in fear of their reprisals upon the 
+town.  You hastily make for the road again and are quickly within range of the trees."""
+q1_i2 = """You know your way now and run through the trees.  You arrive back at the campsite in the woods.  You can 
+hear voices up ahead. You slow down and listen from behind a tree. This time there are 
+two other bandits, sitting forlornly around the dying fire.  It sounds like the two men are arguing.
+'We should leave this area! They know where we are and they\'ll be back to kill the rest of us!'
+'You can leave if you like, coward! I will stay here and kill everyone in that town if I have too!'"""
+
+q1_i3 = """You decide that listening behind a tree isn't why you traveled halfway across the empire...
+You jump out from behind the tree and draw forth your weapon."""
 q1_o1 = "You have defeated the bandit!"
 q1_o2 = "You begin the walk back to the village."
 q1_dung = Location("Bandit Campsite", "d1", d1_intro, bandits, [], q1_i1, q1_i2, q1_i3, q1_o1, q1_o2)

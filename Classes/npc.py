@@ -16,7 +16,12 @@ class NPC:
             print(str(c) + ". " + i.name + ": " + str(i.cost))
             c += 1
         print("or 0 to quit")
-        choice = int(input("Choose an item to buy: ")) - 1
+        choice = input("Choose an item to buy: ")
+        while choice == "":
+            choice = input("Choose: ")
+        while not choice.isdigit():
+            choice = input("Choose a number: ")
+        choice = int(choice) - 1
         if choice == -1:
             return
         item = self.items[choice]
@@ -32,6 +37,7 @@ class NPC:
                     char.money -= item.cost
                     self.money += item.cost
                     char.items["weapon"] = item
+                    print("You have bought the {}!".format(item.name))
                     return self.money, self.items, char.items, char.money
                 elif val == "2":
                     print("Okay, that's fine.")
@@ -47,7 +53,12 @@ class NPC:
             print(str(c) + ". " + i.name + ": " + str(i.cost))
             c += 1
         print("or 0 to quit")
-        choice = int(input("Choose an item to sell: ")) - 1
+        choice = input("Choose an item to sell: ")
+        while choice == "":
+            choice = input("Choose: ")
+        while not choice.isdigit():
+            choice = input("Choose a number: ")
+        choice = int(choice) - 1
         if choice == -1:
             return
         item = char.items["items"][choice]
