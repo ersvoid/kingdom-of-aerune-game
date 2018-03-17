@@ -1,4 +1,5 @@
 from Characters.npc import town_pop, bandits, guards, trolls, wizards, leaders
+from Functions.generate_character import random_bandit
 
 
 class Location:
@@ -30,7 +31,7 @@ class Location:
 
 # Shops
 s0_intro = """The blacksmith looks up from his labor as you approach him."""
-s0_shop = Location("Shop", "s0", s0_intro, [town_pop[1]], [])
+s0_shop = Location("Blacksmith", "s0", s0_intro, [town_pop[1]], [])
 
 # Houses
 h0_intro = """The house is in bad shape, even for this village.  The door is little more than thick burlap stretched 
@@ -169,7 +170,7 @@ q6_dung = Location("Inn", "61", d6_intro, bandits, [], q6_i1, q6_i2, q6_i3, q6_o
 d7_intro = """Everyone in town knows where the abandoned tower in the woods is located.  They point you in the right 
 direction and you have barely trekked for an hour when you see the crumbling structure rising through the tree tops on 
 a distant hill.  You make your way to the bottom of the hill and find no clear path to the top.  You will have to climb.
-Luckily, the hill is actaully an uplifted block of layered quartzarenite with cross-cutting faults at around 70 degree 
+Luckily, the hill is actually an uplifted block of layered quartzarenite with cross-cutting faults at around 70 degree 
 to the bedding plane.  So, fairly easily crack climbing.  Though, it takes you several hours to get to the top because 
 you didn't realize you had a fear of heights.  You climb over the edge and collapse beside a tree. 
 \n
@@ -229,3 +230,11 @@ inns = [i0_inn]
 houses = [h0_house]
 halls = [h1_hall]
 dungeons = [q0_dung, q1_dung, q2_dung, q3_dung, q4_dung, q5_dung, q6_dung, q7_dung, q8_dung, q9_dung]
+
+camp_intro = "You decide to stop and make camp. It is almost night by the time you are done."
+c1_i1 = ""
+c1_i2 = ""
+c1_i3 = ""
+c1_o1 = ""
+c1_o2 = ""
+camp = Location("Camp", "c1", camp_intro, [], [], c1_i1, c1_i2, c1_i3, c1_o1, c1_o2)

@@ -1,4 +1,5 @@
-import re
+from Functions.generate_character import random_bandit, check_xp
+from Classes.maps import Location
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
 
@@ -49,18 +50,28 @@ def player_turn(player, enemy):
         return
     for c in choices:
         print(c)
-    choice = input("Your turn: ")
-    if choice == "1":
+    choice = input("'Well?' ")
+    while choice == "":
+        choice = input("'Well?'")
+    while not choice.isdigit():
+        choice = input("'Well?' ")
+    choice = int(choice)
+    if choice == 1:
         if player.attack() > enemy.ac_rating():
             enemy.take_damage(player.damage())
         else:
             print(player.name, " missed!")
-    elif choice == "2":
+    elif choice == 2:
         c = 1
         for m in player.magic:
             print("{}. {} for {} MP".format(c, m.name, m.cost))
             c += 1
-        choice = int(input("Choose spell: ")) - 1
+        choice = input("'Well?' ")
+        while choice == "":
+            choice = input("'Well?'")
+        while not choice.isdigit():
+            choice = input("'Well?' ")
+        choice = int(choice) - 1
         mana = player.magic[choice].cost
         if player.mp - mana < 0:
             print("Spell failed...")
@@ -87,12 +98,17 @@ def player_turn(player, enemy):
                 else:
                     enemy.sleep += player.magic[choice].get_val()
                     print("The enemy is sleeping.")
-    elif choice == "3":
+    elif choice == 3:
         c = 1
         for i in player.items["items"]:
             print("{}. {} X {}".format(c, i.name, i.amt))
             c += 1
-        choice = int(input("Choose an item: ")) - 1
+        choice = input("'Well?' ")
+        while choice == "":
+            choice = input("'Well?'")
+        while not choice.isdigit():
+            choice = input("'Well?' ")
+        choice = int(choice) - 1
         p_item = player.items["items"][choice]
         if not p_item.check_item():
             print("You have no more of that item!")
@@ -123,15 +139,18 @@ def player_turn(player, enemy):
                     else:
                         enemy.sleep = 5
                         print("The enemy is sleeping.")
-    elif choice == "4":
+    elif choice == 4:
         print("You try to run but cannot escape!")
     else:
         choice = input("Your turn: ")
 
 
+b_potions = True
+b_elixirs = True
+
+
 def enemy_turn(enemy, player):
-    b_potions = True
-    b_elixirs = True
+    global b_potions, b_elixirs
     if death(enemy) or death(player):
         return
     if enemy.sleep:
@@ -144,12 +163,17 @@ def enemy_turn(enemy, player):
             print(enemy.name, " missed!")
     elif enemy.id == "leader":
         if (enemy.hp / enemy.maxhp) * 100 < 30:
-            if not enemy.items["potions"].check_item():
-                print("The enemy is looking for something!")
-                b_potions = False
+            if not b_potions:
+                if player.ac_rating() < enemy.attack():
+                    print(enemy.name, " attacks ", player.name)
+                    player.take_damage(enemy.damage())
+                else:
+                    print(enemy.name, " missed!")
             else:
                 enemy.heal((enemy.items["potions"].item_value()))
                 enemy.items["potions"].use_item()
+                b_potions = False
+                return b_potions
         else:
             if player.ac_rating() < enemy.attack():
                 print(enemy.name, " attacks ", player.name)
@@ -158,19 +182,61 @@ def enemy_turn(enemy, player):
                 print(enemy.name, " missed!")
     elif enemy.id == "wizard":
         if (enemy.hp / enemy.maxhp) * 100 < 30:
-            if not enemy.items["potions"].check_item():
-                print("The enemy is looking for something!")
-                b_potions = False
+            if not b_potions:
+                if enemy.items["weapon"].elem == "Magic":
+                    player.take_damage(enemy.damage())
+                    print("The enemy has cast magic missile!")
+                elif enemy.items["weapon"].elem == "Fire":
+                    player.fire += 5
+                    player.take_damage(enemy.damage())
+                    print("The player has caught on fire!")
+                elif enemy.items["weapon"].elem == "Alter":
+                    val = enemy.damage()
+                    if val > player.will():
+                        player.sleep = True
+                        print("The player has fallen asleep!")
+                    else:
+                        print("Enemy spell failed.")
+                elif enemy.items["weapon"].elem == "Death":
+                    if enemy.will() > player.will():
+                        player.hp = 0
+                        print("A black ray pierces your heart!")
+                    else:
+                        player.take_damage(enemy.damage())
+                        print("A black mist chokes you..")
             else:
                 enemy.heal((enemy.items["potions"].item_value()))
                 enemy.items["potions"].use_item()
+                b_potions = False
+                return b_potions
         elif (enemy.mp / enemy.maxmp) * 100 < 30:
-            if not enemy.items["elixirs"].check_item():
-                print("The enemy is looking for something!")
-                b_elixirs = False
+            if not b_elixirs:
+                if enemy.items["weapon"].elem == "Magic":
+                    player.take_damage(enemy.damage())
+                    print("The enemy has cast magic missile!")
+                elif enemy.items["weapon"].elem == "Fire":
+                    player.fire += 5
+                    player.take_damage(enemy.damage())
+                    print("The player has caught on fire!")
+                elif enemy.items["weapon"].elem == "Alter":
+                    val = enemy.damage()
+                    if val > player.will():
+                        player.sleep = True
+                        print("The player has fallen asleep!")
+                    else:
+                        print("Enemy spell failed.")
+                elif enemy.items["weapon"].elem == "Death":
+                    if enemy.will() > player.will():
+                        player.hp = 0
+                        print("A black ray pierces your heart!")
+                    else:
+                        player.take_damage(enemy.damage())
+                        print("A black mist chokes you..")
             else:
                 enemy.heal((enemy.items["elixirs"].item_value()))
                 enemy.items["elixirs"].use_item()
+                b_elixirs = False
+                return b_elixirs
         else:
             if enemy.items["weapon"].elem == "Magic":
                 player.take_damage(enemy.damage())
@@ -183,7 +249,7 @@ def enemy_turn(enemy, player):
                 val = enemy.damage()
                 if val > player.will():
                     player.sleep = True
-                    print("The player has falled asleep!")
+                    print("The player has fallen asleep!")
                 else:
                     print("Enemy spell failed.")
             elif enemy.items["weapon"].elem == "Death":
@@ -229,7 +295,7 @@ def battle(loc, player):
         player.win_gold(enemy.money)
         player.get_xp(enemy.xp)
         print("You have gained {} XP.".format(enemy.xp))
-        enemy.reset()
+        loc.pop.pop(0)
         return True
 
 
@@ -254,7 +320,7 @@ def game_screen(loc):
         print("{}. {}".format(c, l.name))
         c += 1
     num = len(loc.lst) + 1
-    print("{}. Leave town.".format(num))
+    print("{}. Patrol town.".format(num))
     val = input("Choose one: ")
     while val == "":
         val = input("Choose one: ")
@@ -410,7 +476,12 @@ def mayor_hall(loc, player, dungeon, a=a1, b=100, c=c1, d=d1):
         loc.pop[0].talk()
         print("1. Yes")
         print("2. No")
-        val = int(input("'Well?' "))
+        val = input("'Well?' ")
+        while val == "":
+            val = input("'Well?'")
+        while not val.isdigit():
+            val = input("'Well?' ")
+        val = int(val)
         if val == 1:
             print(c)
             hall_on = False
@@ -445,9 +516,12 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
     elif val == 3:
         hall_on = True
     elif val == 4:
-        print("You feel compelled to stay and make a name for yourself...")
-        game_on = False
-        return game_on
+        print("You feel compelled to make a name for yourself...")
+        bandit = random_bandit(player)
+        p1_intro = ""
+        battle_ground = Location("PATROL", "p1", p1_intro, [bandit], [])
+        battle(battle_ground, player)
+        return False
     else:
         int(input("Choose one: "))
     while shop_on:
@@ -460,13 +534,14 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
         _bool = mayor_hall(hall, player, dungeon)
         if _bool:
             return True
-    continue_screen()
 
 
 def town_game(player, town, shop, inn, house, hall, dungeon):
     _bool = run_village(player, town, shop, inn, house, hall, dungeon)
     if _bool:
         return True
+    else:
+        return False
 
 
 def dungeon_lvl(player):
@@ -501,3 +576,5 @@ def game_stage(player, towns, shops, inns, houses, halls, dungeons):
         _bool = town_game(player, towns[0], shops[0], inns[0], houses[0], halls[0], dungeons[lvl])
         if _bool:
             return True
+        else:
+            return False

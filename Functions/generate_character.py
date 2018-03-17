@@ -44,7 +44,7 @@ def random_npc(prof="npc"):
         return rand
 
 
-def random_char(gold, m, w, x, a=1, b=5, c=12):
+def random_char(gold, m, w, x, a=1, b=8, c=12):
     char_name = choice(first_name) + " " + choice(last_name)
     r_str = randint(b, c) + a
     r_int = randint(b, c) + a
@@ -53,32 +53,42 @@ def random_char(gold, m, w, x, a=1, b=5, c=12):
     r_cha = randint(b, c) + a
     r_con = randint(b, c) + a
     rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
-    rand_char.get_xp(15 * a)
+    rand_char.get_xp(5 * a)
     return rand_char
 
 # Generate a new Player Character with a Higher Level
 
 
 def level_player(char):
-    char.lvl += 1
-    n_str = char.str + randint(0, 5) + 5
-    n_int = char.int + randint(0, 5) + 5
-    n_dex = char.dex + randint(0, 5) + 5
-    n_wis = char.wis + randint(0, 5) + 5
-    n_cha = char.cha + randint(0, 5) + 5
-    n_con = char.con + randint(0, 5) + 10
-    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, char.money)
+    new_lvl = char.lvl + 1
+    n_str = char.str + randint(0, 5) + 1
+    n_int = char.int + randint(0, 5) + 1
+    n_dex = char.dex + randint(0, 5) + 1
+    n_wis = char.wis + randint(0, 5) + 1
+    n_cha = char.cha + randint(0, 5) + 1
+    n_con = char.con + randint(0, 5) + 1
+    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, money=char.money, lvl=new_lvl)
     new.quest = char.quest
-    new.lvl = char.lvl
     return new
 
 
 def check_xp(char):
     lvl = char.lvl
+    print("CURRENT XP: {}".format(char.xp))
     if char.xp < 10 * lvl:
+        print("NO LEVEL GAINED")
         return char
     elif char.xp >= 10 * lvl:
         char.xp -= 10 * lvl
+        print("NEW XP: {}".format(char.xp))
         new_char = level_player(char)
+        new_char.xp = char.xp
         print("Your power has increased!")
         return new_char
+
+
+def random_bandit(char):
+    lvl = char.lvl
+    gold = 10 * lvl
+    band = random_char(gold, [], {"weapon":char.items["weapon"]}, a=lvl, x="bandit")
+    return band

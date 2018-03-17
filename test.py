@@ -1,10 +1,13 @@
-from Functions.game import battle
-from Functions.generate_character import Character, player_items, player_magic
-from Classes.maps import dungeons
 
 
-player = Character("Eric Stinson", 10, 500, 500, 500, 500, 500, player_magic, player_items)
-player.display_stats()
+c = 0
+for n in range(1,11):
+    print(n)
+    c += n
 
+c *= 10
 
-battle(dungeons[9], player)
+print(c)
+lst = []
+
+lst.pop(0)
