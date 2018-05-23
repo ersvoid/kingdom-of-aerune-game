@@ -3,40 +3,49 @@ p_lst = []
 e_lst = []
 # shop function that displays item types
 item_labels = ["Weak Potion", "Potion", "Strong Potion", "Weak Elixir", "Elixir", "Strong Elixir"]
+
+
 def display_shop_menu():
     c = 1
     for item in item_labels:
         print("{}. {}".format(c, item))
         c += 1
+
+
 # function that takes input of item type chosen and generates new item with unique name/id
+
+ids = generate_ids()
+
 
 def player_choice():
     choice = input("What would ya like? ")
-    generate_ids()
     id_count = 0
+    while choice == "":
+        choice = input("'Well?'")
+    while not choice.isdigit():
+        choice = input("'Well?' ")
+    choice = int(choice)
     if choice == 1:
-        i = Item(_id = ids[id_count])
+        i = Item("Potion of Light Wounds", 50, 50, types[1], _id=ids[id_count])
         id_count += 1
         return i
     elif choice == 2:
-        i = Item(_id = ids[id_count])
+        i = Item("Potion of Moderate Wounds", 100, 100, types[1], _id=ids[id_count])
         id_count += 1
         return i
     elif choice == 3:
-        i = Item(_id = ids[id_count])
+        i = Item("Potion of Heavy Wounds", 200, 200, types[1], _id=ids[id_count])
         id_count += 1
         return i
     elif choice == 4:
-        i = Item(_id = ids[id_count])
+        i = Item("Weak Elixir", 50, 50, types[3], _id=ids[id_count])
         id_count += 1
         return i
     elif choice == 5:
-        i = Item(_id = ids[id_count])
+        i = Item("Elixir", 100, 100, types[3], _id=ids[id_count])
         id_count += 1
         return i
     elif choice == 6:
-        i = Item(_id = ids[id_count])
+        i = Item("Strong Elixir", 200, 200, types[3], _id=ids[id_count])
         id_count += 1
         return i
-    else:
-        pass
