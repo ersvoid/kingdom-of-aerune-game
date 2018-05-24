@@ -49,3 +49,48 @@ def player_choice():
         i = Item("Strong Elixir", 200, 200, types[3], _id=ids[id_count])
         id_count += 1
         return i
+
+
+
+
+def enchantment_check(char):
+    weapon = char.items["weapon"]
+    try:
+        weapons[weapon]
+        return True
+    except ValueError:
+        return False
+
+
+def enchant_weapon(char):
+    weapon = char.items["weapon"]
+    bool = enchantment_check(char)
+    if bool:
+        lst = ["White", "Red", "Black"]
+        c = 1
+        for l in lst:
+            print("{}. {}".format(c, l))
+            c += 1
+        print("{}. Never you mind.".format(c))
+        choice = input("Please select an enchantment: ")
+        while choice == "":
+            choice = input("'Well?'")
+        while not choice.isdigit():
+            choice = input("'Well?' ")
+        choice = int(choice)
+        if choice == 1:
+            index = weapons[weapon]
+            weapon = magic_weapons[index]
+            char.items["weapon"] = weapon
+        elif choice == 2:
+            index = weapons[weapon]
+            weapon = fire_weapons[index]
+            char.items["weapon"] = weapon
+        elif choice == 3:
+            index = weapons[weapon]
+            weapon = death_weapons[index]
+            char.items["weapon"] = weapon
+        elif choice == 4:
+            return
+    else:
+        return
