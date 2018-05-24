@@ -1,13 +1,16 @@
+from random import randint, choice
+import string
 
 
 class Item:
-    def __init__(self, name, val, cost, _type, amount=1, element="None"):
+    def __init__(self, name, val, cost, _type, amount=1, element="None", _id = "None"):
         self.name = name
         self.val = val
         self.cost = cost
         self.type = _type
         self.amt = amount
         self.elem = element
+        self.id = _id
 
     def item_value(self):
         return self.val
@@ -16,7 +19,7 @@ class Item:
         return self.type
 
     def __del__(self):
-        pass
+        print("Item discarded")
 
     def check_item(self):
         if self.amt == 0:
@@ -67,11 +70,25 @@ magic_weapons = [short_sword_magic, long_sword_magic, bastard_sword_magic, great
 death_weapons = [short_sword_death, long_sword_death, bastard_sword_death, great_sword_death, great_axe_death]
 
 # Potions type = type[1]
-pot_light = Item("Potion of Light Wounds", 50, 50, types[1])
-pot_med = Item("Potion of Moderate Wounds", 100, 100, types[1])
-pot_heav = Item("Potion of Heavy Wounds", 200, 200, types[1])
 
-potions = [pot_light, pot_med, pot_heav]
+pot_light1 = Item("Potion of Light Wounds", 50, 50, types[1])
+pot_light2 = Item("Potion of Light Wounds", 50, 50, types[1])
+pot_light3 = Item("Potion of Light Wounds", 50, 50, types[1])
+pot_light4 = Item("Potion of Light Wounds", 50, 50, types[1])
+pot_light5 = Item("Potion of Light Wounds", 50, 50, types[1])
+pot_med1 = Item("Potion of Moderate Wounds", 100, 100, types[1])
+pot_med2 = Item("Potion of Moderate Wounds", 100, 100, types[1])
+pot_med3 = Item("Potion of Moderate Wounds", 100, 100, types[1])
+pot_med4 = Item("Potion of Moderate Wounds", 100, 100, types[1])
+pot_med5 = Item("Potion of Moderate Wounds", 100, 100, types[1])
+pot_heav1 = Item("Potion of Heavy Wounds", 200, 200, types[1])
+pot_heav2 = Item("Potion of Heavy Wounds", 200, 200, types[1])
+pot_heav3 = Item("Potion of Heavy Wounds", 200, 200, types[1])
+pot_heav4 = Item("Potion of Heavy Wounds", 200, 200, types[1])
+pot_heav5 = Item("Potion of Heavy Wounds", 200, 200, types[1])
+
+potions = [pot_light1, pot_light2, pot_light3, pot_light4, pot_light5, pot_med1, pot_med2, pot_med3, pot_med4, pot_med5,
+           pot_heav1, pot_heav2, pot_heav3, pot_heav4, pot_heav5]
 
 # Scroll type = type[2]
 scr_magic_missile = Item("Scroll of Magic Missile", 10, 100, types[2], element="Magic")
@@ -86,11 +103,24 @@ scr_paralyze = Item("Scroll of Sleep Paralysis", 20, 50, types[2], element="Alte
 scrolls = [scr_magic_missile, scr_firebolt, scr_heal, scr_heal2, scr_heal3, scr_deathray, scr_sleep, scr_paralyze]
 
 # Elixir type = type[3]
-elix_light = Item("Weak Elixir", 25, 50, types[3])
-elix_med = Item("Elixir", 25, 50, types[3])
-elix_heav = Item("Strong Elixir", 25, 50, types[3])
+elix_light1 = Item("Weak Elixir", 25, 50, types[3])
+elix_med1 = Item("Elixir", 25, 50, types[3])
+elix_heav1 = Item("Strong Elixir", 25, 50, types[3])
+elix_light2 = Item("Weak Elixir", 25, 50, types[3])
+elix_med2 = Item("Elixir", 25, 50, types[3])
+elix_heav2 = Item("Strong Elixir", 25, 50, types[3])
+elix_light3 = Item("Weak Elixir", 25, 50, types[3])
+elix_med3 = Item("Elixir", 25, 50, types[3])
+elix_heav3 = Item("Strong Elixir", 25, 50, types[3])
+elix_light4 = Item("Weak Elixir", 25, 50, types[3])
+elix_med4 = Item("Elixir", 25, 50, types[3])
+elix_heav4 = Item("Strong Elixir", 25, 50, types[3])
+elix_light5 = Item("Weak Elixir", 25, 50, types[3])
+elix_med5 = Item("Elixir", 25, 50, types[3])
+elix_heav5 = Item("Strong Elixir", 25, 50, types[3])
 
-elixirs = [elix_light, elix_med, elix_heav]
+elixirs = [elix_light1, elix_light2, elix_light3, elix_light4, elix_light5, elix_med1, elix_med2, elix_med3, elix_med4,
+           elix_med5, elix_heav1, elix_heav2, elix_heav3, elix_heav4, elix_heav5]
 
 # Staff type = type[4]
 magic_staff = Item("Staff of Magic", 8, 500, types[4], element="Magic")
@@ -104,4 +134,73 @@ staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
 
 
-inn_items = [pot_light, pot_med, pot_heav, elix_light, elix_med, elix_heav]
+inn_items = []
+
+# IDs
+id_list = []
+for a in string.ascii_letters:
+    id_list.append(a)
+
+number = len(id_list)
+id_numbers = []
+for n in range(0, 10):
+    id_numbers.append(n)
+ids = []
+
+
+def generate_ids():
+    for a in id_list:
+        for n in id_numbers:
+            ids.append(a + str(n))
+
+
+generate_ids()
+
+id_val = 0
+
+# list of item classes
+p_lst = []
+e_lst = []
+# shop function that displays item types
+item_labels = ["Weak Potion", "Potion", "Strong Potion", "Weak Elixir", "Elixir", "Strong Elixir"]
+
+
+def display_shop_menu():
+    c = 1
+    for item in item_labels:
+        print("{}. {}".format(c, item))
+        c += 1
+
+
+def player_choice():
+    choice = input("What would ya like? ")
+    id_count = 0
+    while choice == "":
+        choice = input("'Well?'")
+    while not choice.isdigit():
+        choice = input("'Well?' ")
+    choice = int(choice)
+    if choice == 1:
+        i = Item("Potion of Light Wounds", 50, 50, types[1], _id=ids[id_count])
+        id_count += 1
+        return i
+    elif choice == 2:
+        i = Item("Potion of Moderate Wounds", 100, 100, types[1], _id=ids[id_count])
+        id_count += 1
+        return i
+    elif choice == 3:
+        i = Item("Potion of Heavy Wounds", 200, 200, types[1], _id=ids[id_count])
+        id_count += 1
+        return i
+    elif choice == 4:
+        i = Item("Weak Elixir", 50, 50, types[3], _id=ids[id_count])
+        id_count += 1
+        return i
+    elif choice == 5:
+        i = Item("Elixir", 100, 100, types[3], _id=ids[id_count])
+        id_count += 1
+        return i
+    elif choice == 6:
+        i = Item("Strong Elixir", 200, 200, types[3], _id=ids[id_count])
+        id_count += 1
+    return i

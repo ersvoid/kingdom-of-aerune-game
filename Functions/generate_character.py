@@ -6,7 +6,7 @@ from Classes.npc import NPC
 
 # Generate the player character
 player_magic = [magic_missile, heal, sleep, firebolt, heal2, paralyze, heal3]
-player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0]]}
+player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]]}
 shop_items = weapons
 
 
