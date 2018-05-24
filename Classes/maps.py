@@ -165,7 +165,7 @@ q6_i3 = """Every week or so, a new person arrives to make a new life for themsel
 recent horrors visited upon this town.  Quite like you, you suppose."""
 q6_o1 = "You have killed the wizard's apprentice!"
 q6_o2 = "You begin the walk back to the village."
-q6_dung = Location("Inn", "61", d6_intro, bandits, [], q6_i1, q6_i2, q6_i3, q6_o1, q6_o2)
+q6_dung = Location("Inn", "61", d6_intro, wizards, [], q6_i1, q6_i2, q6_i3, q6_o1, q6_o2)
 
 d7_intro = """Everyone in town knows where the abandoned tower in the woods is located.  They point you in the right 
 direction and you have barely trekked for an hour when you see the crumbling structure rising through the tree tops on 

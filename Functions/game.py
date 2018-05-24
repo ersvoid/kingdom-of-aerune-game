@@ -1,5 +1,6 @@
 from Functions.generate_character import random_bandit, check_xp
 from Classes.maps import Location
+from Classes.inventory import display_shop_menu, player_choice
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
 
@@ -101,7 +102,7 @@ def player_turn(player, enemy):
     elif choice == 3:
         c = 1
         for i in player.items["items"]:
-            print("{}. {} X {}".format(c, i.name, i.amt))
+            print("{}. {}".format(c, i.name))
             c += 1
         choice = input("'Well?' ")
         while choice == "":
@@ -113,7 +114,6 @@ def player_turn(player, enemy):
         if not p_item.check_item():
             print("You have no more of that item!")
         else:
-            p_item.use_item()
             if p_item.type == "potion":
                 player.heal(p_item.item_value())
             elif p_item.type == "elixir":
@@ -139,6 +139,10 @@ def player_turn(player, enemy):
                     else:
                         enemy.sleep = 5
                         print("The enemy is sleeping.")
+            p_item.use_item()
+            if not p_item.check_item():
+                p_item.__del__()
+                player.items["items"].remove(p_item)
     elif choice == 4:
         print("You try to run but cannot escape!")
     else:
@@ -418,7 +422,22 @@ def innkeeper(loc, player):
             return inn_on
     elif val == 2:
         print("You have " + str(player.money) + "gp.")
-        loc.pop[0].sell(player)
+        display_shop_menu()
+        drink = player_choice()
+        if drink.cost > player.money:
+            print("NO SALE")
+        else:
+            print("1 is yes. 2 is no.")
+            y_n = input("That'll be {} gp. Cool? ".format(drink.cost))
+            while y_n == "":
+                y_n = input("'Well?'")
+            while not y_n.isdigit():
+                y_n = input("'Well?' ")
+            y_n = int(y_n)
+            if y_n == 1:
+                loc.pop[0].sell_drink(player, drink)
+            else:
+                pass
     elif val == 3:
         print("The innkeeper waves goodbye.")
         inn_on = False

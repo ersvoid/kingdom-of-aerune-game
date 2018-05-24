@@ -43,6 +43,14 @@ class NPC:
                     print("Okay, that's fine.")
                 else:
                     return
+            else:
+                temp_var = char.items["items"]
+                temp_var.append(item)
+                char.items["items"] = temp_var
+                char.money -= item.cost
+                self.money += item.cost
+                print("You have bought a {}!".format(item.name))
+                return self.money, self.items, char.items, char.money
         else:
             print("You don't have enough gold!")
             int(input("Choose an item to buy: ")) - 1
@@ -65,4 +73,13 @@ class NPC:
         char.money += item.cost
         self.money -= item.cost
         del char.items["items"][choice]
+        return self.money, self.items, char.items, char.money
+
+    def sell_drink(self, char, drink):
+        temp_var = char.items["items"]
+        temp_var.append(drink)
+        char.items["items"] = temp_var
+        char.money -= drink.cost
+        self.money += drink.cost
+        print("You have bought a {}!".format(drink.name))
         return self.money, self.items, char.items, char.money
