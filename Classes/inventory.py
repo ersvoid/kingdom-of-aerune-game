@@ -1,9 +1,9 @@
 from random import randint, choice
 import string
-
+from Classes.magic import spells
 
 class Item:
-    def __init__(self, name, val, cost, _type, amount=1, element="None", _id = "None"):
+    def __init__(self, name, val, cost, _type, amount=1, element="None", _id="None"):
         self.name = name
         self.val = val
         self.cost = cost
@@ -19,7 +19,7 @@ class Item:
         return self.type
 
     def __del__(self):
-        print("Item discarded")
+        return
 
     def check_item(self):
         if self.amt == 0:
@@ -203,4 +203,78 @@ def player_choice():
     elif choice == 6:
         i = Item("Strong Elixir", 200, 200, types[3], _id=ids[id_count])
         id_count += 1
-    return i
+        return i
+
+
+def generate_scroll(spell):
+    index = spells.index(spell)
+    if index == 0:
+        s = Item("Scroll of Magic Missile", 10, 100, types[2], element="Magic", _id=randint(1,1000))
+        return s
+    elif index == 1:
+        s = Item("Scroll of Firebolt", 25, 100, types[2], element="Fire", _id=randint(1,1000))
+        return s
+    elif index == 2:
+        s = Item("Scroll of Scroll of Heal", 50, 100, types[2], element="Heal", _id=randint(1,1000))
+        return s
+    elif index == 3:
+        s = Item("Scroll of Cure Moderate Wounds", 100, 200, types[2], element="Heal", _id=randint(1,1000))
+        return s
+    elif index == 4:
+        s = Item("Scroll of Cure Heavy Wounds", 200, 500, types[2], element="Heal", _id=randint(1,1000))
+        return s
+    elif index == 5:
+        s = Item("Scroll of Death", 15, 100, types[2], element="Death", _id=randint(1,1000))
+        return s
+    elif index == 6:
+        s = Item("Scroll of Sleep", 10, 20, types[2], element="Alter", _id=randint(1,1000))
+        return s
+    elif index == 7:
+        s = Item("Scroll of Sleep Paralysis", 20, 50, types[2], element="Alter", _id=randint(1,1000))
+        return s
+
+
+def enchantment_check(char):
+    weapon = char.items["weapon"]
+    try:
+        weapons.index(weapon)
+        return True
+    except ValueError:
+        return False
+
+
+def enchant_weapon(char):
+    weapon = char.items["weapon"]
+    _bool = enchantment_check(char)
+    if _bool:
+        lst = ["White", "Red", "Black"]
+        c = 1
+        for l in lst:
+            print("{}. {}".format(c, l))
+            c += 1
+        print("{}. Never you mind.".format(c))
+        choice = input("Please select an enchantment: ")
+        while choice == "":
+            choice = input("'Well?'")
+        while not choice.isdigit():
+            choice = input("'Well?' ")
+        choice = int(choice)
+        if choice == 1:
+            index = weapons.index(weapon)
+            weapon = magic_weapons[index]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 2:
+            index = weapons.index(weapon)
+            weapon = fire_weapons[index]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 3:
+            index = weapons.index(weapon)
+            weapon = death_weapons[index]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 4:
+            return
+        else:
+            return
