@@ -1,6 +1,6 @@
 from Functions.generate_character import random_bandit, check_xp
 from Classes.maps import Location
-from Classes.inventory import display_shop_menu, player_choice
+from Classes.inventory import Item, display_shop_menu, player_choice, generate_scroll, enchant_weapon, enchantment_check
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
 
@@ -58,10 +58,24 @@ def player_turn(player, enemy):
         choice = input("'Well?' ")
     choice = int(choice)
     if choice == 1:
-        if player.attack() > enemy.ac_rating():
-            enemy.take_damage(player.damage())
+        if player.items["weapon"].elem == "Magic":
+            if player.attack() + 5 > enemy.ac_rating():
+                enemy.take_damage(player.damage() + 10)
+        elif player.items["weapon"].elem == "Fire":
+            if player.attack() > enemy.ac_rating():
+                enemy.fire = 5
+                enemy.take_damage(player.damage())
+        elif player.items["weapon"].elem == "Death":
+            if enemy.will() < player.will():
+                enemy.hp = 0
+                print("A black ray pierces the heart of your enemy...")
+            else:
+                enemy.take_damage(player.magic[choice].get_val())
         else:
-            print(player.name, " missed!")
+            if player.attack() > enemy.ac_rating():
+                enemy.take_damage(player.damage())
+            else:
+                print(player.name, " missed!")
     elif choice == 2:
         c = 1
         for m in player.magic:
@@ -317,14 +331,17 @@ exposed to the elements and dangers of the wild.""")
     continue_screen()
 
 
-def game_screen(loc):
+def game_screen(loc, char):
     c = 1
     print("You stand on the dirt street.")
     for l in loc.lst:
         print("{}. {}".format(c, l.name))
         c += 1
     num = len(loc.lst) + 1
-    print("{}. Patrol town.".format(num))
+    print("{}. Patrol Town".format(num))
+    print("{}. Compose Spell".format(num + 1))
+    if char.lvl > 4:
+        print("{}. Enchant Weapon".format(num + 2))
     val = input("Choose one: ")
     while val == "":
         val = input("Choose one: ")
@@ -332,7 +349,7 @@ def game_screen(loc):
         val = input("Choose one: ")
     else:
         val = int(val) - 1
-    while val < 0 or val > num:
+    while val < 0 or val > num + 2:
         val = int(input("Choose: "))
     else:
         return val
@@ -522,9 +539,35 @@ hall_on = False
 questing = False
 
 
+def compose(char):
+    print("You pull out your parchment and quill and set about composing a spell for later.")
+    c = 1
+    for spell in char.magic:
+        print("{}. {}".format(c, spell.name))
+        c += 1
+    val = input("Choose: ")
+    while val == "":
+        val = input("'Well?'")
+    while not val.isdigit():
+        val = input("'Well?' ")
+    val = int(val) - 1
+    p_spell = char.magic[val]
+    if p_spell.cost > char.mp:
+        print("You are too tired.")
+    else:
+        char.mp -= p_spell.cost
+        print("You begin to draft your scroll.")
+        scroll = generate_scroll(p_spell)
+        temp_var = char.items["items"]
+        temp_var.append(scroll)
+        char.items["items"] = temp_var
+        print("You have created a {}!".format(scroll.name))
+        return char.items, char.mp
+
+
 def run_village(player, town, shop, inn, house, hall, dungeon):
     global shop_on, inn_on, house_on, battle_on, hall_on, questing
-    val = game_screen(town)
+    val = game_screen(town, player)
     print("\n")
     if val == 0:
         shop_on = True
@@ -541,6 +584,11 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
         battle_ground = Location("PATROL", "p1", p1_intro, [bandit], [])
         battle(battle_ground, player)
         return False
+    elif val == 5:
+        compose(player)
+        return False
+    elif val == 6:
+        enchant_weapon(player)
     else:
         int(input("Choose one: "))
     while shop_on:

@@ -32,4 +32,4 @@ heal3 = Spell("Cure Heavy Wounds", "heal", 50, 40)
 sleep = Spell("Sleep", "alter", 5, 20)
 paralyze = Spell("Sleep Paralysis", "alter", 10, 50)
 
-spells = [magic_missile, firebolt, deathray, heal, heal2, heal3, sleep, paralyze]
+spells = [magic_missile, firebolt, heal, heal2, heal3, deathray, sleep, paralyze]
