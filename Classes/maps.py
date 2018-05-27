@@ -33,12 +33,15 @@ class Location:
 s0_intro = """The blacksmith looks up from his labor as you approach him."""
 s0_shop = Location("Blacksmith", "s0", s0_intro, [town_pop[1]], [])
 
+s1_intro = """The armorsmith looks up at you with sweat on his brow."""
+s1_shop = Location("Armorsmith", "s1", s1_intro, [town_pop[3]], [])
+
 # Houses
 h0_intro = """The house is in bad shape, even for this village.  The door is little more than thick burlap stretched 
 across a wooden frame and opens onto a dirt-floored shack with a shoddily-thatched roof.  There is a decent framed-bed, 
 at least, shoved into a corner, a wooden chest beside it, and one chair next to a table in the opposite corner.  A lone 
 villager stands inside, surprised at your intrusion."""
-h0_house = Location("House", "h0", h0_intro, [town_pop[3]], [])
+h0_house = Location("House", "h0", h0_intro, [town_pop[4]], [])
 
 h1_intro = """QUEST MENU"""
 h1_hall = Location("QUEST", "h1", h1_intro, [town_pop[0]], [])
@@ -49,7 +52,7 @@ the center of the main hall and you are bathed in warm, low light as you enter. 
 towards you and welcomes you in."""
 i0_inn = Location("Inn", "i0", i0_intro, [town_pop[2]], [])
 
-t0_town_list = [s0_shop, i0_inn, h0_house, h1_hall]
+t0_town_list = [s0_shop, s1_shop, i0_inn, h0_house, h1_hall]
 
 # Towns
 t0_intro = """You stand at the entrance of a small village of about ten small cottages.  The smell of firewood 
@@ -225,7 +228,7 @@ q9_o2 = "You begin the walk back to the village."
 q9_dung = Location("Wizard's Tower Sanctuary", "d9", d9_intro, wizards, [], q9_i1, q9_i2, q9_i3, q9_o1, q9_o2)
 
 towns = [t0_town, t1_town]
-shops = [s0_shop]
+shops = [s0_shop, s1_shop]
 inns = [i0_inn]
 houses = [h0_house]
 halls = [h1_hall]

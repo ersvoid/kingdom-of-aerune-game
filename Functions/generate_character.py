@@ -1,12 +1,12 @@
 from Classes.character import Character
 from Classes.magic import magic_missile, heal, heal2, heal3, firebolt, sleep, paralyze
-from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs
+from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs, armors
 from random import randint, choice
 from Classes.npc import NPC
 
 # Generate the player character
 player_magic = [magic_missile, heal, sleep, firebolt, heal2, paralyze, heal3]
-player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]]}
+player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]], "armor": armors[0]}
 shop_items = weapons
 
 
@@ -16,9 +16,9 @@ def initial_player():
 
 
 # Generate a random character
-first_name = ["Arthur", "Baxter", "Clark", "Dane", "Eric", "Frank", "Gary", "Hort", "Inigo", "Jok", "Larry", "Martin",
-              "Nick", "Ork", "Paul", "Que", "Randy", "Stephen", "Terry", "Uncle Bart", "Victor", "Walter",
-              "Xerxes", "Yank", "Zebulon"]
+first_name = ["Arthur", "Brock", "Connor", "Dane", "Eric", "Frank", "Gary", "Harry", "Ivan", "Jack", "Larry", "Martin",
+              "Nick", "Owen", "Paul", "Quinn", "Randy", "Stephen", "Terry", "Ulysses", "Victor", "Walter",
+              "Xerxes", "Youngblood", "Zebulon"]
 last_name = ["Adams", "Brown", "Clark", "Davis", "Evans", "Fisher", "Green", "Harris", "Ingram", "Johnson",
              "Lewis", "Miller", "Nelson", "Owen", "Paulson", "Quakers", "Robinson", "Smith", "Taylor", "Utley",
              "Vincent", "Williams", "Xavier", "Young", "Zaragoza"]
@@ -38,6 +38,9 @@ def random_npc(prof="npc"):
         return rand
     elif prof == "inn":
         rand = NPC(name=char_name, items=inn_items, money=200, phrase=inn_phrase)
+        return rand
+    elif prof == "arm":
+        rand = NPC(name=char_name, items=armors, money = 200, phrase=shop_phrase)
         return rand
     else:
         rand = NPC(name=char_name, items=[], money=5, phrase=npc_phrase)
@@ -61,12 +64,12 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
 
 def level_player(char):
     new_lvl = char.lvl + 1
-    n_str = char.str + randint(0, 5) + 1
-    n_int = char.int + randint(0, 5) + 1
-    n_dex = char.dex + randint(0, 5) + 1
-    n_wis = char.wis + randint(0, 5) + 1
-    n_cha = char.cha + randint(0, 5) + 1
-    n_con = char.con + randint(0, 5) + 1
+    n_str = char.str + 1
+    n_int = char.int + 1
+    n_dex = char.dex + 1
+    n_wis = char.wis + 1
+    n_cha = char.cha + 1
+    n_con = char.con + 1
     new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, money=char.money, lvl=new_lvl)
     new.quest = char.quest
     return new
@@ -90,5 +93,5 @@ def check_xp(char):
 def random_bandit(char):
     lvl = char.lvl
     gold = 10 * lvl
-    band = random_char(gold, [], {"weapon":char.items["weapon"]}, a=lvl, x="bandit")
+    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0]}, a=lvl, x="bandit")
     return band

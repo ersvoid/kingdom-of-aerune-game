@@ -9,6 +9,29 @@ def build_mp(char):
     return char.get_lvl() * 10 + char.lvl * char.get_wis()
 
 
+def value_mod(stat):
+    if stat <= 3:
+        return -4
+    elif stat <= 5:
+        return -3
+    elif stat <= 7:
+        return -2
+    elif stat <= 9:
+        return -1
+    elif stat <= 11:
+        return 0
+    elif stat <= 13:
+        return 1
+    elif stat <= 15:
+        return 2
+    elif stat <= 17:
+        return 3
+    elif stat <= 19:
+        return 4
+    elif stat <= 21:
+        return 5
+
+
 class Character:
 
     def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, money=0, lvl=1, _id="player"):
@@ -22,9 +45,9 @@ class Character:
         self.con = con
         self.magic = magic
         self.items = items
-        self.maxhp = self.lvl * 10 + self.lvl * self.con
+        self.maxhp = 10 + (self.lvl * 1) + (self.con - 10)
         self.hp = self.maxhp
-        self.maxmp = self.lvl * 10 + self.lvl * self.wis
+        self.maxmp = 10 + (self.lvl * 1) + (self.wis - 10)
         self.mp = self.maxmp
         self.sleep = False
         self.fire = 0
@@ -40,22 +63,28 @@ class Character:
         print("I am called ", self.name, "!")
 
     def get_str(self):
-        return self.str - 10
+        val = value_mod(self.str)
+        return val
 
     def get_int(self):
-        return self.int - 10
+        val = value_mod(self.int)
+        return val
 
     def get_dex(self):
-        return self.dex - 10
+        val = value_mod(self.dex)
+        return val
 
     def get_wis(self):
-        return self.wis - 10
+        val = value_mod(self.wis)
+        return val
 
     def get_cha(self):
-        return self.cha - 10
+        val = value_mod(self.cha)
+        return val
 
     def get_con(self):
-        return self.con - 10
+        val = value_mod(self.con)
+        return val
 
     def get_hp(self):
         return self.hp
@@ -68,7 +97,12 @@ class Character:
         return randint(1, 21) + self.get_str()
 
     def ac_rating(self):
-        return randint(1, 21) + self.get_dex()
+        try:
+            val = 10 + self.get_dex() + self.items["armor"].val
+        except:
+            return val
+        else:
+            return 10 + self.get_dex()
 
     def reflex(self):
         return randint(1, 21) + self.get_dex()
@@ -109,6 +143,12 @@ class Character:
               "Wisdom: ", self.wis, "\n"
               "Charisma: ", self.cha, "\n"
               "Constitution: ", self.con)
+        print("You have a {} equipped.".format(self.items["weapon"].name))
+        print("You are wearing {}.".format(self.items["armor"].name))
+        print("You have {} gold pieces.".format(self.money))
+        print("You have the following items in your rucksack:")
+        for item in self.items["items"]:
+            print(item.name)
 
     def __del__(self):
         pass
@@ -119,13 +159,34 @@ class Character:
         else:
             pass
 
-    def damage(self):
+    def damage(self, enemy):
         if self.items["weapon"].type == "weapon":
             val = randint(1, self.items["weapon"].item_value()) + self.get_str()
             if val < 0:
                 return 0
             else:
-                return val
+                if self.items["weapon"].elem == "Magic":
+                    if self.attack() + 5 > enemy.ac_rating():
+                        return val + 10
+                    else:
+                        return 0
+                elif self.items["weapon"].elem == "Fire":
+                    if self.attack() + 5 > enemy.ac_rating():
+                        enemy.fire = 5
+                        return val + 10
+                    else:
+                        return 0
+                elif self.items["weapon"].elem == "Death":
+                    if enemy.will() < self.will():
+                        a = enemy.hp % 2
+                        return val + a
+                    else:
+                        return val
+                else:
+                    if self.attack() > enemy.ac_rating():
+                        return val
+                    else:
+                        return 0
         elif self.items["weapon"].type == "staff":
             if self.items["weapon"].elem == "Magic":
                 return 10

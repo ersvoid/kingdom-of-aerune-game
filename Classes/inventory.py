@@ -2,6 +2,7 @@ from random import randint, choice
 import string
 from Classes.magic import spells
 
+
 class Item:
     def __init__(self, name, val, cost, _type, amount=1, element="None", _id="None"):
         self.name = name
@@ -39,30 +40,30 @@ class Item:
 
 
 # Generate items
-types = ["weapon", "potion", "scroll", "elixir", "staff", "quest"]
+types = ["weapon", "potion", "scroll", "elixir", "staff", "quest", "armor"]
 elements = ["Fire", "Death", "Magic", "Alter", "Heal"]
 
 # Weapons type = type[0]
-short_sword = Item("Short Sword", 4, 10, types[0])
+short_sword = Item("Short Sword", 6, 10, types[0])
 long_sword = Item("Long Sword", 8, 100, types[0])
-bastard_sword = Item("Bastard Sword", 16, 200, types[0])
-great_sword = Item("Greatsword", 32, 500, types[0])
-great_axe = Item("Greataxe", 50, 1000, types[0])
-short_sword_fire = Item("Short Sword of Fire", 4, 10, types[0], element="Fire")
+bastard_sword = Item("Bastard Sword", 10, 200, types[0])
+great_sword = Item("Greatsword", 12, 500, types[0])
+great_axe = Item("Greataxe", 16, 1000, types[0])
+short_sword_fire = Item("Short Sword of Fire", 6, 10, types[0], element="Fire")
 long_sword_fire = Item("Long Sword of Fire", 8, 100, types[0], element="Fire")
-bastard_sword_fire = Item("Bastard Sword of Fire", 16, 200, types[0], element="Fire")
-great_sword_fire = Item("Greatsword of Fire", 32, 500, types[0], element="Fire")
-great_axe_fire = Item("Greataxe of Fire", 50, 1000, types[0], element="Fire")
-short_sword_magic = Item("Short Sword of Magic", 4, 10, types[0], element="Magic")
+bastard_sword_fire = Item("Bastard Sword of Fire", 10, 200, types[0], element="Fire")
+great_sword_fire = Item("Greatsword of Fire", 12, 500, types[0], element="Fire")
+great_axe_fire = Item("Greataxe of Fire", 16, 1000, types[0], element="Fire")
+short_sword_magic = Item("Short Sword of Magic", 6, 10, types[0], element="Magic")
 long_sword_magic = Item("Long Sword of Magic", 8, 100, types[0], element="Magic")
-bastard_sword_magic = Item("Bastard Sword of Magic", 16, 200, types[0], element="Magic")
-great_sword_magic = Item("Greatsword of Magic", 32, 500, types[0], element="Magic")
-great_axe_magic = Item("Greataxe of Magic", 50, 1000, types[0], element="Magic")
-short_sword_death = Item("Short Sword of Death", 4, 10, types[0], element="Death")
+bastard_sword_magic = Item("Bastard Sword of Magic", 10, 200, types[0], element="Magic")
+great_sword_magic = Item("Greatsword of Magic", 12, 500, types[0], element="Magic")
+great_axe_magic = Item("Greataxe of Magic", 16, 1000, types[0], element="Magic")
+short_sword_death = Item("Short Sword of Death", 6, 10, types[0], element="Death")
 long_sword_death = Item("Long Sword of Death", 8, 100, types[0], element="Death")
-bastard_sword_death = Item("Bastard Sword of Death", 16, 200, types[0], element="Death")
-great_sword_death = Item("Greatsword of Death", 32, 500, types[0], element="Death")
-great_axe_death = Item("Greataxe of Death", 50, 1000, types[0], element="Death")
+bastard_sword_death = Item("Bastard Sword of Death", 10, 200, types[0], element="Death")
+great_sword_death = Item("Greatsword of Death", 12, 500, types[0], element="Death")
+great_axe_death = Item("Greataxe of Death", 16, 1000, types[0], element="Death")
 
 weapons = [short_sword, long_sword, bastard_sword, great_sword, great_axe]
 fire_weapons = [short_sword_fire, long_sword_fire, bastard_sword_fire, great_sword_fire, great_axe_fire]
@@ -93,9 +94,9 @@ potions = [pot_light1, pot_light2, pot_light3, pot_light4, pot_light5, pot_med1,
 # Scroll type = type[2]
 scr_magic_missile = Item("Scroll of Magic Missile", 10, 100, types[2], element="Magic")
 scr_firebolt = Item("Scroll of Firebolt", 25, 100, types[2], element="Fire")
-scr_heal = Item("Scroll of Scroll of Heal", 50, 100, types[2], element="Heal")
-scr_heal2 = Item("Scroll of Cure Moderate Wounds", 100, 200, types[2], element="Heal")
-scr_heal3 = Item("Scroll of Cure Heavy Wounds", 200, 500, types[2], element="Heal")
+scr_heal = Item("Scroll of Mend Light Wounds", 50, 100, types[2], element="Heal")
+scr_heal2 = Item("Scroll of Mend Wounds", 100, 200, types[2], element="Heal")
+scr_heal3 = Item("Scroll of Mend Heavy Wounds", 200, 500, types[2], element="Heal")
 scr_deathray = Item("Scroll of Death", 15, 100, types[2], element="Death")
 scr_sleep = Item("Scroll of Sleep", 10, 20, types[2], element="Alter")
 scr_paralyze = Item("Scroll of Sleep Paralysis", 20, 50, types[2], element="Alter")
@@ -123,15 +124,28 @@ elixirs = [elix_light1, elix_light2, elix_light3, elix_light4, elix_light5, elix
            elix_med5, elix_heav1, elix_heav2, elix_heav3, elix_heav4, elix_heav5]
 
 # Staff type = type[4]
-magic_staff = Item("Staff of Magic", 8, 500, types[4], element="Magic")
-fire_staff = Item("Staff of Fire", 8, 500, types[4], element="Fire")
-death_staff = Item("Staff of Death", 8, 500, types[4], element="Death")
-sleep_staff = Item("Staff of Sleep", 8, 500, types[4], element="Alter")
+magic_staff = Item("Staff of Magic", 8, 1000, types[4], element="Magic")
+fire_staff = Item("Staff of Fire", 8, 2000, types[4], element="Fire")
+death_staff = Item("Staff of Death", 8, 5000, types[4], element="Death")
+sleep_staff = Item("Staff of Sleep", 8, 3500, types[4], element="Alter")
 
 staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 
 # Quest Items = type[5]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
+
+# Armor Items = type[6]
+padded = Item("Padded Armor", 1, 50, types[6])
+leather = Item("Leather Armor", 1, 100, types[6])
+studded = Item("Studded Leather Armor", 2, 150, types[6])
+chainshirt = Item("Chain Shirt", 3, 250, types[6])
+scale = Item("Scalemail", 4, 350, types[6])
+half = Item("Half Plate Armor", 5, 550, types[6])
+ring = Item("Ringmail", 6, 650, types[6])
+chain = Item("Chainmail", 7, 850, types[6])
+full = Item("Platemail", 8, 1150, types[6])
+
+armors = [padded, leather, studded, chainshirt, scale, half, ring, chain, full]
 
 
 inn_items = []

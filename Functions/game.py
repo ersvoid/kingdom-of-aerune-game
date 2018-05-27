@@ -1,5 +1,5 @@
 from Functions.generate_character import random_bandit, check_xp
-from Classes.maps import Location
+from Classes.maps import Location, shops
 from Classes.inventory import Item, display_shop_menu, player_choice, generate_scroll, enchant_weapon, enchantment_check
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
@@ -58,24 +58,12 @@ def player_turn(player, enemy):
         choice = input("'Well?' ")
     choice = int(choice)
     if choice == 1:
-        if player.items["weapon"].elem == "Magic":
-            if player.attack() + 5 > enemy.ac_rating():
-                enemy.take_damage(player.damage() + 10)
-        elif player.items["weapon"].elem == "Fire":
-            if player.attack() > enemy.ac_rating():
-                enemy.fire = 5
-                enemy.take_damage(player.damage())
-        elif player.items["weapon"].elem == "Death":
-            if enemy.will() < player.will():
-                enemy.hp = 0
-                print("A black ray pierces the heart of your enemy...")
-            else:
-                enemy.take_damage(player.magic[choice].get_val())
+        val = player.damage(enemy)
+        if val == 0:
+            print("You have missed!")
         else:
-            if player.attack() > enemy.ac_rating():
-                enemy.take_damage(player.damage())
-            else:
-                print(player.name, " missed!")
+            print("You have attack for {} damage!".format(val))
+            enemy.take_damage(val)
     elif choice == 2:
         c = 1
         for m in player.magic:
@@ -86,6 +74,10 @@ def player_turn(player, enemy):
             choice = input("'Well?'")
         while not choice.isdigit():
             choice = input("'Well?' ")
+        while int(choice) < 1:
+            choice = input("'Well?' ")
+        while int(choice) > len(player.magic):
+            choice = input ("'Well'? ")
         choice = int(choice) - 1
         mana = player.magic[choice].cost
         if player.mp - mana < 0:
@@ -174,42 +166,46 @@ def enemy_turn(enemy, player):
     if enemy.sleep:
         return
     if enemy.id == "bandit":
-        if player.ac_rating() < enemy.attack():
-            print(enemy.name, " attacks ", player.name)
-            player.take_damage(enemy.damage())
+        a = enemy.damage(player)
+        if a == 0:
+            print("Enemy misses!")
+            return
         else:
-            print(enemy.name, " missed!")
+            player.take_damage(a)
     elif enemy.id == "leader":
         if (enemy.hp / enemy.maxhp) * 100 < 30:
             if not b_potions:
-                if player.ac_rating() < enemy.attack():
-                    print(enemy.name, " attacks ", player.name)
-                    player.take_damage(enemy.damage())
+                a = enemy.damage(player)
+                if a == 0:
+                    print("Enemy misses!")
+                    return
                 else:
-                    print(enemy.name, " missed!")
+                    player.take_damage(a)
             else:
                 enemy.heal((enemy.items["potions"].item_value()))
                 enemy.items["potions"].use_item()
                 b_potions = False
                 return b_potions
         else:
-            if player.ac_rating() < enemy.attack():
-                print(enemy.name, " attacks ", player.name)
-                player.take_damage(enemy.damage())
+            a = enemy.damage(player)
+            if a == 0:
+                print("Enemy misses!")
+                return
             else:
-                print(enemy.name, " missed!")
+                player.take_damage(a)
     elif enemy.id == "wizard":
+        a = enemy.damage(player)
         if (enemy.hp / enemy.maxhp) * 100 < 30:
             if not b_potions:
                 if enemy.items["weapon"].elem == "Magic":
-                    player.take_damage(enemy.damage())
+                    player.take_damage(a)
                     print("The enemy has cast magic missile!")
                 elif enemy.items["weapon"].elem == "Fire":
                     player.fire += 5
-                    player.take_damage(enemy.damage())
+                    player.take_damage(a)
                     print("The player has caught on fire!")
                 elif enemy.items["weapon"].elem == "Alter":
-                    val = enemy.damage()
+                    val = a
                     if val > player.will():
                         player.sleep = True
                         print("The player has fallen asleep!")
@@ -217,10 +213,10 @@ def enemy_turn(enemy, player):
                         print("Enemy spell failed.")
                 elif enemy.items["weapon"].elem == "Death":
                     if enemy.will() > player.will():
-                        player.hp = 0
+                        player.hp = player.hp / 2
                         print("A black ray pierces your heart!")
                     else:
-                        player.take_damage(enemy.damage())
+                        player.take_damage(a)
                         print("A black mist chokes you..")
             else:
                 enemy.heal((enemy.items["potions"].item_value()))
@@ -230,14 +226,14 @@ def enemy_turn(enemy, player):
         elif (enemy.mp / enemy.maxmp) * 100 < 30:
             if not b_elixirs:
                 if enemy.items["weapon"].elem == "Magic":
-                    player.take_damage(enemy.damage())
+                    player.take_damage(a)
                     print("The enemy has cast magic missile!")
                 elif enemy.items["weapon"].elem == "Fire":
                     player.fire += 5
-                    player.take_damage(enemy.damage())
+                    player.take_damage(a)
                     print("The player has caught on fire!")
                 elif enemy.items["weapon"].elem == "Alter":
-                    val = enemy.damage()
+                    val = enemy.damage(player)
                     if val > player.will():
                         player.sleep = True
                         print("The player has fallen asleep!")
@@ -245,10 +241,10 @@ def enemy_turn(enemy, player):
                         print("Enemy spell failed.")
                 elif enemy.items["weapon"].elem == "Death":
                     if enemy.will() > player.will():
-                        player.hp = 0
+                        player.hp = player.hp / 2
                         print("A black ray pierces your heart!")
                     else:
-                        player.take_damage(enemy.damage())
+                        player.take_damage(a)
                         print("A black mist chokes you..")
             else:
                 enemy.heal((enemy.items["elixirs"].item_value()))
@@ -257,14 +253,14 @@ def enemy_turn(enemy, player):
                 return b_elixirs
         else:
             if enemy.items["weapon"].elem == "Magic":
-                player.take_damage(enemy.damage())
+                player.take_damage(a)
                 print("The enemy has cast magic missile!")
             elif enemy.items["weapon"].elem == "Fire":
                 player.fire += 5
-                player.take_damage(enemy.damage())
+                player.take_damage(a)
                 print("The player has caught on fire!")
             elif enemy.items["weapon"].elem == "Alter":
-                val = enemy.damage()
+                val = a
                 if val > player.will():
                     player.sleep = True
                     print("The player has fallen asleep!")
@@ -272,10 +268,10 @@ def enemy_turn(enemy, player):
                     print("Enemy spell failed.")
             elif enemy.items["weapon"].elem == "Death":
                 if enemy.will() > player.will():
-                    player.hp = 0
+                    player.hp = player.hp / 2
                     print("A black ray pierces your heart!")
                 else:
-                    player.take_damage(enemy.damage())
+                    player.take_damage(a)
                     print("A black mist chokes you..")
 
 
@@ -338,10 +334,11 @@ def game_screen(loc, char):
         print("{}. {}".format(c, l.name))
         c += 1
     num = len(loc.lst) + 1
-    print("{}. Patrol Town".format(num))
-    print("{}. Compose Spell".format(num + 1))
+    print("{}. Character Sheet".format(num))
+    print("{}. Patrol Town".format(num + 1))
+    print("{}. Compose Spell".format(num + 2))
     if char.lvl > 4:
-        print("{}. Enchant Weapon".format(num + 2))
+        print("{}. Enchant Weapon".format(num + 3))
     val = input("Choose one: ")
     while val == "":
         val = input("Choose one: ")
@@ -571,13 +568,15 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
     print("\n")
     if val == 0:
         shop_on = True
-    elif val == 1:
-        inn_on = True
+    if val == 1:
+        shopping(shops[1], player)
     elif val == 2:
-        house_on = True
+        inn_on = True
     elif val == 3:
-        hall_on = True
+        house_on = True
     elif val == 4:
+        hall_on = True
+    elif val == 6:
         print("You feel compelled to make a name for yourself...")
         bandit = random_bandit(player)
         p1_intro = ""
@@ -585,9 +584,11 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
         battle(battle_ground, player)
         return False
     elif val == 5:
+        player.display_stats()
+    elif val == 7:
         compose(player)
         return False
-    elif val == 6:
+    elif val == 8:
         enchant_weapon(player)
     else:
         int(input("Choose one: "))
