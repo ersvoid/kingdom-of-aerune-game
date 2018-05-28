@@ -86,8 +86,12 @@ def player_turn(player, enemy):
             player.take_mp(mana)
             if player.magic[choice].type == "attack":
                 if player.magic[choice].elem == "Fire":
-                    enemy.fire = 5
-                    enemy.take_damage(player.magic[choice].get_val())
+                    if player.lvl < 5:
+                        enemy.fire = 5
+                        enemy.take_damage(player.magic[choice].get_val())
+                    elif player.lvl >= 10:
+                        enemy.fire = 10
+                        enemy.take_damage(player.magic[choice].get_val()*4)
                 elif player.magic[choice].elem == "Death":
                     if enemy.will() < player.will():
                         enemy.hp = 0
@@ -96,7 +100,16 @@ def player_turn(player, enemy):
                         print("A black ray shoots from your fingers...")
                         enemy.take_damage(player.magic[choice].get_val())
                 else:
-                    enemy.take_damage(player.magic[choice].get_val())
+                    if player.lvl < 2:
+                        enemy.take_damage(player.magic[choice].get_val())
+                    elif player.lvl < 4:
+                        enemy.take_damage(player.magic[choice].get_val()*2)
+                    elif player.lvl < 6:
+                        enemy.take_damage(player.magic[choice].get_val()*3)
+                    elif player.lvl < 8:
+                        enemy.take_damage(player.magic[choice].get_val()*4)
+                    elif player.lvl >= 10:
+                        enemy.take_damage(player.magic[choice].get_val()*5)
             elif player.magic[choice].type == "heal":
                 player.heal(player.magic[choice].get_val())
             elif player.magic[choice].type == "alter":
@@ -582,7 +595,7 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
     elif val == 4:
         hall_on = True
     elif val == 6:
-        print("You feel compelled to make a name for yourself...")
+        print("You decided to wander the forest at the edge of the village...")
         bandit = random_bandit(player)
         p1_intro = ""
         battle_ground = Location("PATROL", "p1", p1_intro, [bandit], [])
@@ -594,7 +607,10 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
         compose(player)
         return False
     elif val == 8:
-        enchant_weapon(player)
+        if not player.lvl > 4:
+            print("You are not strong enough yet!")
+        else:
+            enchant_weapon(player)
     else:
         int(input("Choose one: "))
     while shop_on:

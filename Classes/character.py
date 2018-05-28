@@ -30,11 +30,15 @@ def value_mod(stat):
         return 4
     elif stat <= 21:
         return 5
+    else:
+        return 0
 
 
 class Character:
 
-    def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, money=0, lvl=1, _id="player"):
+    def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, rollover=10, rollover2=10, money=0, lvl=1,
+                 _id="player",
+                 prof="None"):
         self.name = name
         self.lvl = lvl
         self.str = _str
@@ -45,9 +49,11 @@ class Character:
         self.con = con
         self.magic = magic
         self.items = items
-        self.maxhp = 10 + (self.lvl * 1) + (self.con - 10)
+        self.rollover = rollover
+        self.maxhp = value_mod(self.con) + self.rollover
         self.hp = self.maxhp
-        self.maxmp = 10 + (self.lvl * 1) + (self.wis - 10)
+        self.rollover2 = rollover2
+        self.maxmp = value_mod(self.wis) + self.rollover2
         self.mp = self.maxmp
         self.sleep = False
         self.fire = 0
@@ -55,6 +61,7 @@ class Character:
         self.quest = 0
         self.xp = 0
         self.id = _id
+        self.prof = prof
 
     def get_lvl(self):
         return self.lvl
@@ -218,3 +225,13 @@ class Character:
     def get_xp(self, val):
         self.xp += val
         return self.xp
+
+    def profession(self, val):
+        if val == 0:
+            self.prof = "Spellsword"
+        elif val == 1:
+            self.prof = "Warden"
+        elif val == 2:
+            self.prof = "Sorceror"
+        print("You were trained to be a {}!".format(self.prof))
+        return self.prof

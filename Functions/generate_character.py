@@ -11,8 +11,22 @@ shop_items = weapons
 
 
 def initial_player():
-    player_name = str(input("What is you name, adventurer? "))
-    return Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, 100)
+    player_name = str(input("What is your name, adventurer? "))
+    char = Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, money=100)
+    for i in ["1. Spellsword", "2. Warden", "3. Sorceror"]:
+        print(i)
+    val = input("What is your profession, {}?".format(player_name))
+    while val == "":
+        val = input("'Well?'")
+    while not val.isdigit():
+        val = input("'Well?' ")
+    while int(val) < 1:
+        val = input("'Well?' ")
+    while int(val) > 3:
+        val = input("Well? ")
+    val = int(val) - 1
+    char.profession(val)
+    return char
 
 
 # Generate a random character
@@ -64,13 +78,36 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
 
 def level_player(char):
     new_lvl = char.lvl + 1
-    n_str = char.str + 1
-    n_int = char.int + 1
-    n_dex = char.dex + 1
-    n_wis = char.wis + 1
-    n_cha = char.cha + 1
-    n_con = char.con + 1
-    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, money=char.money, lvl=new_lvl)
+    if char.prof == "Spellsword":
+        n_str = char.str + 0
+        n_int = char.int + 0
+        n_dex = char.dex + 0
+        n_wis = char.wis + 1
+        n_cha = char.cha + 0
+        n_con = char.con + 1
+        n_rollover = char.maxhp + 5
+        n_rollover2 = char.maxmp + 5
+    elif char.prof == "Warden":
+        n_str = char.str + 1
+        n_int = char.int + 0
+        n_dex = char.dex + 0
+        n_wis = char.wis + 0
+        n_cha = char.cha + 0
+        n_con = char.con + 1
+        n_rollover = char.maxhp + 10
+        n_rollover2 = char.maxmp + 0
+    elif char.prof == "Sorceror":
+        n_str = char.str + 0
+        n_int = char.int + 0
+        n_dex = char.dex + 1
+        n_wis = char.wis + 1
+        n_cha = char.cha + 0
+        n_con = char.con + 0
+        n_rollover = char.maxhp + 0
+        n_rollover2 = char.maxmp + 10
+    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, rollover=n_rollover,
+                    rollover2=n_rollover2, money=char.money,
+                    lvl=new_lvl)
     new.quest = char.quest
     return new
 
