@@ -278,9 +278,14 @@ def enemy_turn(enemy, player):
 def battle(loc, player):
     global battle_on, _round
     enemy = loc.pop[0]
-    print("{} has entered the arena.".format(enemy.name))
-    player_init = player.ac_rating()
-    enemy_init = enemy.ac_rating()
+    print("You are fighting {}.".format(enemy.name))
+    player_init = player.initiative()
+    enemy_init = enemy.initiative()
+    if player_init == enemy_init:
+        player_init = player.get_dex()
+        enemy_init = enemy.get_dex()
+    if player_init == enemy_init:
+        player_init += 1
     _round = True
     while _round:
         display_board(player, enemy)

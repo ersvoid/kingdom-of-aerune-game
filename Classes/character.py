@@ -96,6 +96,9 @@ class Character:
         print("{} attacks!".format(self.name))
         return randint(1, 21) + self.get_str()
 
+    def initiative(self):
+        return randint(1,21) + self.get_dex()
+
     def ac_rating(self):
         try:
             val = 10 + self.get_dex() + self.items["armor"].val
