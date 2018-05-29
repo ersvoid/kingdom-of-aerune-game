@@ -1,24 +1,41 @@
 from Classes.character import Character
 from Classes.magic import magic_missile, heal, heal2, heal3, firebolt, sleep, paralyze
-from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs
+from Classes.inventory import weapons, inn_items, scrolls, staffs, potions, elixirs, armors
 from random import randint, choice
 from Classes.npc import NPC
 
 # Generate the player character
 player_magic = [magic_missile, heal, sleep, firebolt, heal2, paralyze, heal3]
-player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]]}
+player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]], "armor": armors[0]}
 shop_items = weapons
+profs = ["Spellsword", "Warden", "Sorceror"]
 
 
 def initial_player():
-    player_name = str(input("What is you name, adventurer? "))
-    return Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, 100)
+    player_name = str(input("What is your name, adventurer? "))
+    char = Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, money=100)
+    c = 1
+    for i in profs:
+        print("{}. {}".format(c, i))
+        c += 1
+    val = input("What is your profession, {}?".format(player_name))
+    while val == "":
+        val = input("'Well?'")
+    while not val.isdigit():
+        val = input("'Well?' ")
+    while int(val) < 1:
+        val = input("'Well?' ")
+    while int(val) > 3:
+        val = input("Well? ")
+    val = int(val) - 1
+    char.profession(val)
+    return char
 
 
 # Generate a random character
-first_name = ["Arthur", "Baxter", "Clark", "Dane", "Eric", "Frank", "Gary", "Hort", "Inigo", "Jok", "Larry", "Martin",
-              "Nick", "Ork", "Paul", "Que", "Randy", "Stephen", "Terry", "Uncle Bart", "Victor", "Walter",
-              "Xerxes", "Yank", "Zebulon"]
+first_name = ["Arthur", "Brock", "Connor", "Dane", "Eric", "Frank", "Gary", "Harry", "Ivan", "Jack", "Larry", "Martin",
+              "Nick", "Owen", "Paul", "Quinn", "Randy", "Stephen", "Terry", "Ulysses", "Victor", "Walter",
+              "Xerxes", "Youngblood", "Zebulon"]
 last_name = ["Adams", "Brown", "Clark", "Davis", "Evans", "Fisher", "Green", "Harris", "Ingram", "Johnson",
              "Lewis", "Miller", "Nelson", "Owen", "Paulson", "Quakers", "Robinson", "Smith", "Taylor", "Utley",
              "Vincent", "Williams", "Xavier", "Young", "Zaragoza"]
@@ -39,6 +56,9 @@ def random_npc(prof="npc"):
     elif prof == "inn":
         rand = NPC(name=char_name, items=inn_items, money=200, phrase=inn_phrase)
         return rand
+    elif prof == "arm":
+        rand = NPC(name=char_name, items=armors, money = 200, phrase=shop_phrase)
+        return rand
     else:
         rand = NPC(name=char_name, items=[], money=5, phrase=npc_phrase)
         return rand
@@ -46,12 +66,12 @@ def random_npc(prof="npc"):
 
 def random_char(gold, m, w, x, a=1, b=8, c=12):
     char_name = choice(first_name) + " " + choice(last_name)
-    r_str = randint(b, c) + a
-    r_int = randint(b, c) + a
-    r_dex = randint(b, c) + a
-    r_wis = randint(b, c) + a
-    r_cha = randint(b, c) + a
-    r_con = randint(b, c) + a
+    r_str = randint(b, c)
+    r_int = randint(b, c)
+    r_dex = randint(b, c)
+    r_wis = randint(b, c)
+    r_cha = randint(b, c)
+    r_con = randint(b, c)
     rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
     rand_char.get_xp(5 * a)
     return rand_char
@@ -61,15 +81,51 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
 
 def level_player(char):
     new_lvl = char.lvl + 1
-    n_str = char.str + randint(0, 5) + 1
-    n_int = char.int + randint(0, 5) + 1
-    n_dex = char.dex + randint(0, 5) + 1
-    n_wis = char.wis + randint(0, 5) + 1
-    n_cha = char.cha + randint(0, 5) + 1
-    n_con = char.con + randint(0, 5) + 1
-    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, money=char.money, lvl=new_lvl)
-    new.quest = char.quest
-    return new
+    if char.prof == "Spellsword":
+        n_str = char.str + 0
+        n_int = char.int + 0
+        n_dex = char.dex + 0
+        n_wis = char.wis + 1
+        n_cha = char.cha + 0
+        n_con = char.con + 1
+        n_rollover = char.maxhp + 5
+        n_rollover2 = char.maxmp + 5
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Spellsword")
+        new.quest = char.quest
+        return new
+    elif char.prof == "Warden":
+        n_str = char.str + 1
+        n_int = char.int + 0
+        n_dex = char.dex + 0
+        n_wis = char.wis + 0
+        n_cha = char.cha + 0
+        n_con = char.con + 1
+        n_rollover = char.maxhp + 10
+        n_rollover2 = char.maxmp + 0
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Warden")
+        new.quest = char.quest
+        return new
+    elif char.prof == "Sorceror":
+        n_str = char.str + 0
+        n_int = char.int + 0
+        n_dex = char.dex + 1
+        n_wis = char.wis + 1
+        n_cha = char.cha + 0
+        n_con = char.con + 0
+        n_rollover = char.maxhp + 0
+        n_rollover2 = char.maxmp + 10
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Sorceror")
+        new.quest = char.quest
+        return new
 
 
 def check_xp(char):
@@ -90,5 +146,5 @@ def check_xp(char):
 def random_bandit(char):
     lvl = char.lvl
     gold = 10 * lvl
-    band = random_char(gold, [], {"weapon":char.items["weapon"]}, a=lvl, x="bandit")
+    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0]}, a=lvl, x="bandit")
     return band

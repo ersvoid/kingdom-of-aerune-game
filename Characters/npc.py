@@ -1,5 +1,5 @@
 from Functions.generate_character import random_npc, random_char
-from Classes.inventory import weapons, staffs, potions, elixirs
+from Classes.inventory import weapons, staffs, potions, elixirs, armors
 from Classes.magic import heal, firebolt
 
 # Village people
@@ -7,24 +7,25 @@ from Classes.magic import heal, firebolt
 blacksmith = random_npc(prof="shop")
 innkeeper = random_npc(prof="inn")
 mayor = random_npc(prof="mayor")
+armorsmith = random_npc(prof="arm")
 npc_town1 = random_npc()
 npc_town2 = random_npc()
 npc_town3 = random_npc()
 npc_town4 = random_npc()
 npc_town5 = random_npc()
 
-town_pop = [mayor, blacksmith, innkeeper, npc_town1, npc_town2, npc_town3, npc_town4, npc_town5]
+town_pop = [mayor, blacksmith, innkeeper, armorsmith, npc_town1, npc_town2, npc_town3, npc_town4, npc_town5]
 
 
 # Enemies
 
 
 m_lst = [firebolt, heal]
-bandit_items = {"weapon": weapons[0]}
-guard_items = {"weapon": weapons[2]}
-leader_items = {"weapon": weapons[3],"potions": potions[0]}
-troll_items = {"weapon": weapons[4], "potions": potions[0]}
-wizard_items = {"weapon": staffs[1], "potions": potions[0], "elixirs": elixirs[0]}
+bandit_items = {"weapon": weapons[0], "armor":armors[0]}
+guard_items = {"weapon": weapons[2], "armor":armors[3]}
+leader_items = {"weapon": weapons[3],"potions": potions[0], "armor":armors[2]}
+troll_items = {"weapon": weapons[4], "potions": potions[0], "armor":armors[5]}
+wizard_items = {"weapon": staffs[1], "potions": potions[0], "elixirs": elixirs[0], "armor":armors[0]}
 
 bandit1 = random_char(0, [], bandit_items, a=2, x="bandit")
 bandit2 = random_char(0, [], bandit_items, a=5, x="bandit")

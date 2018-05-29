@@ -12,6 +12,10 @@ while game_start:
         level_one = True
         while level_one:
             _bool = game_stage(player, towns, shops, inns, houses, halls, dungeons)
+            if player.hp <= 0:
+                level_one = False
+                gaming = False
+                game_start = False
             if _bool:
                 player.quest += 1
                 player = check_xp(player)
