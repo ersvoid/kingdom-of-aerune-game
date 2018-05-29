@@ -26,9 +26,16 @@ class Spell:
 magic_missile = Spell("Magic Missile", "attack", 10, 10)
 firebolt = Spell("Firebolt", "attack", 25, 50, element="Fire")
 deathray = Spell("Death Ray", "attack", 15, 100, element="Death")
+
+barkskin = Spell("Barkskin", "defense", 2, 10)
+mage_armor = Spell("Mage Armor", "defense", 4, 15)
+ironskin = Spell("Ironskin", "defense", 6, 30)
+shield = Spell("Shield", "defense", 8, 45)
+
 heal = Spell("Cure Light Wounds", "heal", 10, 10)
 heal2 = Spell("Cure Moderate Wounds", "heal", 25, 20)
 heal3 = Spell("Cure Heavy Wounds", "heal", 50, 40)
+
 sleep = Spell("Sleep", "alter", 5, 20)
 paralyze = Spell("Sleep Paralysis", "alter", 10, 50)
 

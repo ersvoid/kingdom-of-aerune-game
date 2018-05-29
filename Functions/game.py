@@ -128,6 +128,8 @@ def player_turn(player, enemy):
             choice = input("'Well?'")
         while not choice.isdigit():
             choice = input("'Well?' ")
+        while int(choice) > len(player.items["items"]):
+            choice = input("Well? ")
         choice = int(choice) - 1
         p_item = player.items["items"][choice]
         if not p_item.check_item():

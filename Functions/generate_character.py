@@ -8,13 +8,16 @@ from Classes.npc import NPC
 player_magic = [magic_missile, heal, sleep, firebolt, heal2, paralyze, heal3]
 player_items = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]], "armor": armors[0]}
 shop_items = weapons
+profs = ["Spellsword", "Warden", "Sorceror"]
 
 
 def initial_player():
     player_name = str(input("What is your name, adventurer? "))
     char = Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, money=100)
-    for i in ["1. Spellsword", "2. Warden", "3. Sorceror"]:
-        print(i)
+    c = 1
+    for i in profs:
+        print("{}. {}".format(c, i))
+        c += 1
     val = input("What is your profession, {}?".format(player_name))
     while val == "":
         val = input("'Well?'")
@@ -63,12 +66,12 @@ def random_npc(prof="npc"):
 
 def random_char(gold, m, w, x, a=1, b=8, c=12):
     char_name = choice(first_name) + " " + choice(last_name)
-    r_str = randint(b, c) + a
-    r_int = randint(b, c) + a
-    r_dex = randint(b, c) + a
-    r_wis = randint(b, c) + a
-    r_cha = randint(b, c) + a
-    r_con = randint(b, c) + a
+    r_str = randint(b, c)
+    r_int = randint(b, c)
+    r_dex = randint(b, c)
+    r_wis = randint(b, c)
+    r_cha = randint(b, c)
+    r_con = randint(b, c)
     rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
     rand_char.get_xp(5 * a)
     return rand_char
@@ -87,6 +90,12 @@ def level_player(char):
         n_con = char.con + 1
         n_rollover = char.maxhp + 5
         n_rollover2 = char.maxmp + 5
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Spellsword")
+        new.quest = char.quest
+        return new
     elif char.prof == "Warden":
         n_str = char.str + 1
         n_int = char.int + 0
@@ -96,6 +105,12 @@ def level_player(char):
         n_con = char.con + 1
         n_rollover = char.maxhp + 10
         n_rollover2 = char.maxmp + 0
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Warden")
+        new.quest = char.quest
+        return new
     elif char.prof == "Sorceror":
         n_str = char.str + 0
         n_int = char.int + 0
@@ -105,11 +120,12 @@ def level_player(char):
         n_con = char.con + 0
         n_rollover = char.maxhp + 0
         n_rollover2 = char.maxmp + 10
-    new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items, rollover=n_rollover,
-                    rollover2=n_rollover2, money=char.money,
-                    lvl=new_lvl)
-    new.quest = char.quest
-    return new
+        new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
+                        rollover=n_rollover,
+                        rollover2=n_rollover2, money=char.money,
+                        lvl=new_lvl, prof="Sorceror")
+        new.quest = char.quest
+        return new
 
 
 def check_xp(char):

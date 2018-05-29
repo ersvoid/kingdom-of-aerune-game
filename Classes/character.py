@@ -146,7 +146,10 @@ class Character:
         return self.mp
 
     def display_stats(self):
-        print("Name: ", self.name, "\n", "HP: ", self.hp, "/", self.maxhp, "\n", "MP: ", self.mp, "/", self.maxmp, "\n"
+        print("Name: ", self.name, "\n",
+              "Class: ", self.prof, "\n",
+              "HP: ", self.hp, "/", self.maxhp, "\n",
+              "MP: ", self.mp, "/", self.maxmp, "\n"
               "Strength: ", self.str, "\n"
               "Intelligence: ", self.int, "\n"
               "Dexterity: ", self.dex, "\n"
