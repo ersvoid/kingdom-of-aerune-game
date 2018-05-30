@@ -62,6 +62,7 @@ class Character:
         self.xp = 0
         self.id = _id
         self.prof = prof
+        self.house = False
 
     def get_lvl(self):
         return self.lvl
@@ -101,7 +102,7 @@ class Character:
 
     def attack(self):
         print("{} attacks!".format(self.name))
-        return randint(1, 21) + self.get_str()
+        return randint(1, 21) + self.lvl
 
     def initiative(self):
         return randint(1,21) + self.get_dex()
@@ -232,9 +233,19 @@ class Character:
     def profession(self, val):
         if val == 0:
             self.prof = "Spellsword"
+            self.maxhp += 5
+            self.maxmp += 5
+            self.wis += 2
+            self.con += 2
         elif val == 1:
             self.prof = "Warden"
+            self.maxhp += 10
+            self.con += 2
+            self.str += 2
         elif val == 2:
             self.prof = "Sorceror"
+            self.maxmp += 10
+            self.dex += 2
+            self.wis += 2
         print("You were trained to be a {}!".format(self.prof))
         return self.prof

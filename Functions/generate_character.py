@@ -88,8 +88,8 @@ def level_player(char):
         n_wis = char.wis + 1
         n_cha = char.cha + 0
         n_con = char.con + 1
-        n_rollover = char.maxhp + 5
-        n_rollover2 = char.maxmp + 5
+        n_rollover = char.maxhp + 8
+        n_rollover2 = char.maxmp + 7
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,
                         rollover2=n_rollover2, money=char.money,
@@ -104,7 +104,7 @@ def level_player(char):
         n_cha = char.cha + 0
         n_con = char.con + 1
         n_rollover = char.maxhp + 10
-        n_rollover2 = char.maxmp + 0
+        n_rollover2 = char.maxmp + 5
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,
                         rollover2=n_rollover2, money=char.money,
@@ -118,7 +118,7 @@ def level_player(char):
         n_wis = char.wis + 1
         n_cha = char.cha + 0
         n_con = char.con + 0
-        n_rollover = char.maxhp + 0
+        n_rollover = char.maxhp + 5
         n_rollover2 = char.maxmp + 10
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,

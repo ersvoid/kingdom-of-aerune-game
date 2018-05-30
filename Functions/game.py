@@ -1,5 +1,5 @@
 from Functions.generate_character import random_bandit, check_xp
-from Classes.maps import Location, shops
+from Classes.maps import Location, shops, player_house
 from Classes.inventory import Item, display_shop_menu, player_choice, generate_scroll, enchant_weapon, enchantment_check
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
@@ -480,12 +480,19 @@ def innkeeper(loc, player):
         int(input("'Well?' "))
 
 
-def housing(loc):
+def housing(loc, char):
     global house_on
-    loc.__str__()
-    loc.pop[0].talk()
-    house_on = False
-    return house_on
+    if not char.house:
+        loc.__str__()
+        loc.pop[0].talk()
+        house_on = False
+        return house_on
+    if char.house:
+        loc.__str__()
+        char.reset()
+        print("You spend the night in your home and wake up feeling refreshed.")
+        house_on = False
+        return house_on
 
 
 a1 = "'Please accept this bounty as a gift of our gratitude.'"
@@ -620,7 +627,10 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
     while inn_on:
         innkeeper(inn, player)
     while house_on:
-        housing(house)
+        if not player.house:
+            housing(house, player)
+        if player.house:
+            housing(player_house, player)
     while hall_on:
         _bool = mayor_hall(hall, player, dungeon)
         if _bool:
@@ -662,6 +672,7 @@ def game_stage(player, towns, shops, inns, houses, halls, dungeons):
     lvl = dungeon_lvl(player)
     game_on = True
     towns[0].__str__()
+    # This function runs the game
     print("\n")
     while game_on:
         _bool = town_game(player, towns[0], shops[0], inns[0], houses[0], halls[0], dungeons[lvl])

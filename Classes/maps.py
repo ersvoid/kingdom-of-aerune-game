@@ -42,6 +42,7 @@ across a wooden frame and opens onto a dirt-floored shack with a shoddily-thatch
 at least, shoved into a corner, a wooden chest beside it, and one chair next to a table in the opposite corner.  A lone 
 villager stands inside, surprised at your intrusion."""
 h0_house = Location("House", "h0", h0_intro, [town_pop[4]], [])
+player_house = Location("House", "h0", h0_intro, [], [])
 
 h1_intro = """QUEST MENU"""
 h1_hall = Location("QUEST", "h1", h1_intro, [town_pop[0]], [])
