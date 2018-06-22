@@ -94,3 +94,70 @@ def enchant_weapon(char):
             return
     else:
         return
+
+
+import pygame
+from math import pi
+
+BLACK = (0 , 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+
+PI = pi
+
+pygame.init()
+
+SIZE = (700, 500)
+screen = pygame.display.set_mode(SIZE)
+image = pygame.image.load('castle.jpeg').convert()
+
+pygame.display.set_caption("KINGDOM OF AERUNE")
+
+done = False
+
+clock = pygame.time.Clock()
+
+
+def display_border():
+    pygame.draw.rect(screen, BLACK, [20, 20, 650, 450], 5)
+
+
+def start_menu():
+    lst = ["Start Game", "Load Game", "Quit"]
+    t_font = pygame.font.SysFont('Calibri', 45, False, False)
+    font = pygame.font.SysFont('Calibiri', 25, False, False)
+    text = t_font.render("KINGDOM OF AERUNE", True, RED)
+    screen.blit(text, [200, 100])
+    screen.blit(image, [250, 150])
+    c = 1
+    a = 350
+    for l in lst:
+        text = font.render(str(c) + ". " + l, True, BLACK)
+        screen.blit(text, [275, a])
+        c += 1
+        a += 20
+
+
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+
+    # GAME CODE
+
+    screen.fill(WHITE)
+
+    # DRAWING CODE
+
+    #font = pygame.font.SysFont('Calibri', 25, True, False)
+    #text = font.render("ERIC STINSON", True, BLACK)
+    #screen.blit(text, [25, 25])
+    display_border()
+    start_menu()
+    pygame.display.flip()
+
+    clock.tick(60)
+
+pygame.quit()
