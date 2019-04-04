@@ -323,6 +323,7 @@ def battle(loc, player):
                 break
             player_turn(player, enemy)
     print("ROUND OVER!!!!")
+    player.magic_ac = 0
     if player.hp <= 0:
         print("You are dead.")
         return False
