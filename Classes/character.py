@@ -1,5 +1,7 @@
 from random import randint
-
+import math
+from Classes.magic import ward_magic, sword_magic, sorce_magic
+from Classes.inventory import spellsword_inv, warden_inv, sorceror_inv
 
 def build_hp(char):
     return
@@ -10,35 +12,14 @@ def build_mp(char):
 
 
 def value_mod(stat):
-    if stat <= 3:
-        return -4
-    elif stat <= 5:
-        return -3
-    elif stat <= 7:
-        return -2
-    elif stat <= 9:
-        return -1
-    elif stat <= 11:
-        return 0
-    elif stat <= 13:
-        return 1
-    elif stat <= 15:
-        return 2
-    elif stat <= 17:
-        return 3
-    elif stat <= 19:
-        return 4
-    elif stat <= 21:
-        return 5
-    else:
-        return 0
+    return math.floor(((stat - 10) / 2))
 
 
 class Character:
 
     def __init__(self, name, _str, _int, dex, wis, cha, con, magic, items, rollover=10, rollover2=10, money=0, lvl=1,
                  _id="player",
-                 prof="None"):
+                 prof="None", magic_ac = 0):
         self.name = name
         self.lvl = lvl
         self.str = _str
@@ -62,6 +43,7 @@ class Character:
         self.xp = 0
         self.id = _id
         self.prof = prof
+        self.magic_ac = magic_ac
 
     def get_lvl(self):
         return self.lvl
@@ -107,12 +89,7 @@ class Character:
         return randint(1,21) + self.get_dex()
 
     def ac_rating(self):
-        try:
-            val = 10 + self.get_dex() + self.items["armor"].val
-        except:
-            return val
-        else:
-            return 10 + self.get_dex()
+        return 10 + self.get_dex() + self.items["armor"].val + self.magic_ac
 
     def reflex(self):
         return randint(1, 21) + self.get_dex()
@@ -232,9 +209,29 @@ class Character:
     def profession(self, val):
         if val == 0:
             self.prof = "Spellsword"
+            self.wis = 12
+            self.con = 12
+            self.magic = sword_magic
+            self.items = spellsword_inv
+            self.maxmp = 15
+            self.mp = 15
+            self.maxhp = 15
+            self.hp = 15
         elif val == 1:
             self.prof = "Warden"
+            self.str = 12
+            self.con = 12
+            self.magic = ward_magic
+            self.items = warden_inv
+            self.maxhp = 20
+            self.hp = 20
         elif val == 2:
             self.prof = "Sorceror"
+            self.wis = 12
+            self.dex = 12
+            self.magic = sorce_magic
+            self.items = sorceror_inv
+            self.maxmp = 20
+            self.mp = 20
         print("You were trained to be a {}!".format(self.prof))
         return self.prof

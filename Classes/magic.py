@@ -40,3 +40,7 @@ sleep = Spell("Sleep", "alter", 5, 20)
 paralyze = Spell("Sleep Paralysis", "alter", 10, 50)
 
 spells = [magic_missile, firebolt, heal, heal2, heal3, deathray, sleep, paralyze]
+
+sword_magic = [magic_missile, firebolt, mage_armor, shield, heal, sleep]
+ward_magic = [barkskin, ironskin, shield, heal, heal2, heal3]
+sorce_magic = [magic_missile, firebolt, mage_armor, heal, sleep, paralyze]

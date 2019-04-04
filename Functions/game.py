@@ -6,9 +6,9 @@ choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
 
 
 def display_board(player, enemy):
-    print("                HP           MP")
-    print("{}   {}/{}        {}/{}".format(player.name, player.hp, player.maxhp, player.mp, player.maxmp))
-    print("{}   {}/{}        {}/{}".format(enemy.name, enemy.hp, enemy.maxhp, enemy.mp, enemy.maxmp))
+    print("                HP           MP           AC")
+    print("{}   {}/{}           {}/{}           {}".format(player.name, player.hp, player.maxhp, player.mp, player.maxmp, player.ac_rating()))
+    print("{}   {}/{}           {}/{}           {}".format(enemy.name, enemy.hp, enemy.maxhp, enemy.mp, enemy.maxmp, enemy.ac_rating()))
 
 
 def death(char):
@@ -118,6 +118,8 @@ def player_turn(player, enemy):
                 else:
                     enemy.sleep += player.magic[choice].get_val()
                     print("The enemy is sleeping.")
+            elif player.magic[choice].type == "defense":
+                player.magic_ac = player.magic[choice].get_val()
     elif choice == 3:
         c = 1
         for i in player.items["items"]:

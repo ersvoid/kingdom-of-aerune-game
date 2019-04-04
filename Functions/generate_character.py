@@ -12,7 +12,9 @@ profs = ["Spellsword", "Warden", "Sorceror"]
 
 
 def initial_player():
-    player_name = str(input("What is your name, adventurer? "))
+    player_first = str(input("What is your first name, adventurer? "))
+    player_last = str(input("What is your last name, adventurer? "))
+    player_name = player_first + " " + player_last
     char = Character(player_name, 10, 10, 10, 10, 10, 10, player_magic, player_items, money=100)
     c = 1
     for i in profs:
@@ -87,9 +89,9 @@ def level_player(char):
         n_dex = char.dex + 0
         n_wis = char.wis + 1
         n_cha = char.cha + 0
-        n_con = char.con + 1
-        n_rollover = char.maxhp + 5
-        n_rollover2 = char.maxmp + 5
+        n_con = char.con + 2
+        n_rollover = char.maxhp + 10
+        n_rollover2 = char.maxmp + 10
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,
                         rollover2=n_rollover2, money=char.money,
@@ -97,14 +99,14 @@ def level_player(char):
         new.quest = char.quest
         return new
     elif char.prof == "Warden":
-        n_str = char.str + 1
+        n_str = char.str + 2
         n_int = char.int + 0
         n_dex = char.dex + 0
         n_wis = char.wis + 0
         n_cha = char.cha + 0
         n_con = char.con + 1
-        n_rollover = char.maxhp + 10
-        n_rollover2 = char.maxmp + 0
+        n_rollover = char.maxhp + 15
+        n_rollover2 = char.maxmp + 5
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,
                         rollover2=n_rollover2, money=char.money,
@@ -115,11 +117,11 @@ def level_player(char):
         n_str = char.str + 0
         n_int = char.int + 0
         n_dex = char.dex + 1
-        n_wis = char.wis + 1
+        n_wis = char.wis + 2
         n_cha = char.cha + 0
         n_con = char.con + 0
-        n_rollover = char.maxhp + 0
-        n_rollover2 = char.maxmp + 10
+        n_rollover = char.maxhp + 5
+        n_rollover2 = char.maxmp + 15
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
                         rollover=n_rollover,
                         rollover2=n_rollover2, money=char.money,
@@ -132,7 +134,7 @@ def check_xp(char):
     lvl = char.lvl
     print("CURRENT XP: {}".format(char.xp))
     if char.xp < 10 * lvl:
-        print("NO LEVEL GAINED")
+        print("You will need to keep training to gain a level.")
         return char
     elif char.xp >= 10 * lvl:
         char.xp -= 10 * lvl

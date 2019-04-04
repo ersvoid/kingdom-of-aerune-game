@@ -135,7 +135,7 @@ staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
 
 # Armor Items = type[6]
-padded = Item("Padded Armor", 1, 50, types[6])
+padded = Item("Padded Armor", 0, 50, types[6])
 leather = Item("Leather Armor", 1, 100, types[6])
 studded = Item("Studded Leather Armor", 2, 150, types[6])
 chainshirt = Item("Chain Shirt", 3, 250, types[6])
@@ -146,6 +146,12 @@ chain = Item("Chainmail", 7, 850, types[6])
 full = Item("Platemail", 8, 1150, types[6])
 
 armors = [padded, leather, studded, chainshirt, scale, half, ring, chain, full]
+
+# Starting Items by Character CLASS
+
+spellsword_inv = {"weapon": weapons[1], "items": [potions[0], scrolls[0]], "armor": armors[0]}
+warden_inv = {"weapon": weapons[1], "items": [potions[0]], "armor": armors[1]}
+sorceror_inv = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]], "armor": armors[0]}
 
 
 inn_items = []
