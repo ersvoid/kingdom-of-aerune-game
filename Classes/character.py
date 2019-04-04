@@ -126,12 +126,13 @@ class Character:
         print("Name: ", self.name, "\n",
               "Class: ", self.prof, "\n",
               "HP: ", self.hp, "/", self.maxhp, "\n",
-              "MP: ", self.mp, "/", self.maxmp, "\n"
-              "Strength: ", self.str, "\n"
-              "Intelligence: ", self.int, "\n"
-              "Dexterity: ", self.dex, "\n"
-              "Wisdom: ", self.wis, "\n"
-              "Charisma: ", self.cha, "\n"
+              "MP: ", self.mp, "/", self.maxmp, "\n",
+              "AC: ", self.ac_rating(), "\n",
+              "Strength: ", self.str, "\n",
+              "Intelligence: ", self.int, "\n",
+              "Dexterity: ", self.dex, "\n",
+              "Wisdom: ", self.wis, "\n",
+              "Charisma: ", self.cha, "\n",
               "Constitution: ", self.con)
         print("You have a {} equipped.".format(self.items["weapon"].name))
         print("You are wearing {}.".format(self.items["armor"].name))
