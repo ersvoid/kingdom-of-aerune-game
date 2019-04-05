@@ -74,7 +74,7 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
     r_wis = randint(b, c)
     r_cha = randint(b, c)
     r_con = randint(b, c)
-    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
+    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, money=gold, lvl=a, _id=x)
     rand_char.get_xp(5 * a)
     return rand_char
 
@@ -147,6 +147,6 @@ def check_xp(char):
 
 def random_bandit(char):
     lvl = char.lvl
-    gold = 10 * lvl
-    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
+    money = 10 * lvl
+    band = random_char(gold=money, m=[], w={"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
     return band
