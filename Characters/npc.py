@@ -27,23 +27,23 @@ leader_items = {"weapon": weapons[3],"potions": potions[0], "armor":armors[2], "
 troll_items = {"weapon": weapons[4], "potions": potions[0], "armor":armors[5], "items": "Nothing here"}
 wizard_items = {"weapon": staffs[1], "potions": potions[0], "elixirs": elixirs[0], "armor":armors[0], "items": "Nothing here"}
 
-bandit1 = random_char(0, [], bandit_items, a=2, x="bandit")
-bandit2 = random_char(0, [], bandit_items, a=5, x="bandit")
-bandit3 = random_char(0, [], bandit_items, x="bandit")
-bandit4 = random_char(0, [], bandit_items, x="bandit")
-bandit5 = random_char(0, [], bandit_items, x="bandit")
+bandit1 = random_char(20, 10, [], bandit_items, a=2, x="bandit")
+bandit2 = random_char(50, 10, [], bandit_items, a=5, x="bandit")
+bandit3 = random_char(10, 10, [], bandit_items, x="bandit")
+bandit4 = random_char(10, 10, [], bandit_items, x="bandit")
+bandit5 = random_char(10, 10, [], bandit_items, x="bandit")
 
-sentry = random_char(100,  [], guard_items, a=15, x="leader")
-bodyguard = random_char(100,  [], guard_items, a=25, x="leader")
+sentry = random_char(150, 100,  [], guard_items, a=15, x="leader")
+bodyguard = random_char(250, 100,  [], guard_items, a=25, x="leader")
 
-bandit_leader = random_char(200,  [], leader_items, a=10, x="leader")
-fake_mayor = random_char(500, [], leader_items, a=15, x="leader")
-new_leader = random_char(100, [], leader_items, a=20, x="leader")
+bandit_leader = random_char(100, 200,  [], leader_items, a=10, x="leader")
+fake_mayor = random_char(150, 500, [], leader_items, a=15, x="leader")
+new_leader = random_char(200, 100, [], leader_items, a=20, x="leader")
 
-troll = random_char(500,  [], troll_items, a=10, x="bandit")
+troll = random_char(1000, 500,  [], troll_items, a=10, x="bandit")
 
-wizard = random_char(1000,  m_lst, wizard_items, a=25, x="wizard")
-wizard_apprentice = random_char(0,  m_lst, wizard_items, a=10, x="wizard")
+wizard = random_char(2500, 1000,  m_lst, wizard_items, a=25, x="wizard")
+wizard_apprentice = random_char(1000, 1000,  m_lst, wizard_items, a=10, x="wizard")
 
 bandits = [bandit1, bandit2, bandit3, bandit4, bandit5]
 guards = [sentry, bodyguard]

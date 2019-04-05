@@ -66,7 +66,7 @@ def random_npc(prof="npc"):
         return rand
 
 
-def random_char(gold, m, w, x, a=1, b=8, c=12):
+def random_char(hp, gold, m, w, x, a=1, b=8, c=12):
     char_name = choice(first_name) + " " + choice(last_name)
     r_str = randint(b, c)
     r_int = randint(b, c)
@@ -74,7 +74,7 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
     r_wis = randint(b, c)
     r_cha = randint(b, c)
     r_con = randint(b, c)
-    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, money=gold, lvl=a, _id=x)
+    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, rollover=hp, money=gold, lvl=a, _id=x)
     rand_char.get_xp(5 * a)
     return rand_char
 
@@ -148,5 +148,7 @@ def check_xp(char):
 def random_bandit(char):
     lvl = char.lvl
     money = 10 * lvl
-    band = random_char(gold=money, m=[], w={"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
+    band_hp = 10 * lvl
+    band = random_char(gold=money, m=[], w={"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, hp=band_hp,
+                       a=lvl, x="bandit")
     return band

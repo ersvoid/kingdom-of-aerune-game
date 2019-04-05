@@ -89,7 +89,7 @@ def player_turn(player, enemy):
                     if player.lvl < 5:
                         enemy.fire = 5
                         enemy.take_damage(player.magic[choice].get_val())
-                    elif player.lvl >= 10:
+                    elif player.lvl >= 5:
                         enemy.fire = 10
                         enemy.take_damage(player.magic[choice].get_val()*4)
                 elif player.magic[choice].elem == "Death":
@@ -108,7 +108,7 @@ def player_turn(player, enemy):
                         enemy.take_damage(player.magic[choice].get_val()*3)
                     elif player.lvl < 8:
                         enemy.take_damage(player.magic[choice].get_val()*4)
-                    elif player.lvl >= 10:
+                    elif player.lvl >= 8:
                         enemy.take_damage(player.magic[choice].get_val()*5)
             elif player.magic[choice].type == "heal":
                 player.heal(player.magic[choice].get_val())
@@ -367,13 +367,14 @@ def game_screen(loc, char):
     print("{}. Compose Spell".format(num + 2))
     if char.lvl > 4:
         print("{}. Enchant Weapon".format(num + 3))
-    val = int(input("Choose one: "))
-    while val == "":
+    val = input("Choose one: ")
+
+    while val == " " or val == "":
         val = input("Choose one: ")
-    #while not val.isdigit():
-        #val = input("Choose one: ")
-    else:
-        val -= 1
+    while not val.isdigit():
+        val = input("Choose one: ")
+    val = int(val)
+    val -= 1
     while val < 0 or val > num + 2:
         val = int(input("Choose: "))
     else:

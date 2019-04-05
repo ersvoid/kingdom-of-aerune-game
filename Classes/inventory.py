@@ -41,7 +41,7 @@ class Item:
 
 # Generate items
 types = ["weapon", "potion", "scroll", "elixir", "staff", "quest", "armor"]
-elements = ["Fire", "Death", "Magic", "Alter", "Heal"]
+elements = ["Fire", "Death", "Magic", "Alter", "Heal", "Defense"]
 
 # Weapons type = type[0]
 short_sword = Item("Short Sword", 6, 10, types[0])
@@ -100,8 +100,13 @@ scr_heal3 = Item("Scroll of Mend Heavy Wounds", 200, 500, types[2], element="Hea
 scr_deathray = Item("Scroll of Death", 15, 100, types[2], element="Death")
 scr_sleep = Item("Scroll of Sleep", 10, 20, types[2], element="Alter")
 scr_paralyze = Item("Scroll of Sleep Paralysis", 20, 50, types[2], element="Alter")
+scr_bark = Item("Scroll of Barkskin", 2, 50, types[2], element="defense")
+scr_mage = Item("Scroll of Mage Armor", 4, 50, types[2], element="defense")
+scr_iron = Item("Scroll of Ironskin", 6, 50, types[2], element="defense")
+scr_shield = Item("Scroll of Shield", 8, 50, types[2], element="defense")
 
-scrolls = [scr_magic_missile, scr_firebolt, scr_heal, scr_heal2, scr_heal3, scr_deathray, scr_sleep, scr_paralyze]
+scrolls = [scr_magic_missile, scr_firebolt, scr_heal, scr_heal2, scr_heal3, scr_deathray, scr_sleep, scr_paralyze,
+           scr_bark, scr_mage, scr_iron, scr_shield]
 
 # Elixir type = type[3]
 elix_light1 = Item("Weak Elixir", 25, 50, types[3])
@@ -226,6 +231,7 @@ def player_choice():
         return i
 
 
+
 def generate_scroll(spell):
     index = spells.index(spell)
     if index == 0:
@@ -235,21 +241,33 @@ def generate_scroll(spell):
         s = Item("Scroll of Firebolt", 25, 100, types[2], element="Fire", _id=randint(1,1000))
         return s
     elif index == 2:
-        s = Item("Scroll of Scroll of Heal", 50, 100, types[2], element="Heal", _id=randint(1,1000))
+        s = Item("Scroll of Scroll of Barkskin", 2, 100, types[2], element="Heal", _id=randint(1,1000))
         return s
     elif index == 3:
-        s = Item("Scroll of Cure Moderate Wounds", 100, 200, types[2], element="Heal", _id=randint(1,1000))
+        s = Item("Scroll of Mage Armor", 4, 200, types[2], element="Heal", _id=randint(1,1000))
         return s
     elif index == 4:
-        s = Item("Scroll of Cure Heavy Wounds", 200, 500, types[2], element="Heal", _id=randint(1,1000))
+        s = Item("Scroll of Ironskin", 6, 500, types[2], element="Heal", _id=randint(1,1000))
         return s
     elif index == 5:
-        s = Item("Scroll of Death", 15, 100, types[2], element="Death", _id=randint(1,1000))
+        s = Item("Scroll of Shield", 8, 100, types[2], element="Death", _id=randint(1,1000))
         return s
     elif index == 6:
-        s = Item("Scroll of Sleep", 10, 20, types[2], element="Alter", _id=randint(1,1000))
+        s = Item("Scroll of Scroll of Heal", 50, 100, types[2], element="Heal", _id=randint(1,1000))
         return s
     elif index == 7:
+        s = Item("Scroll of Cure Moderate Wounds", 100, 200, types[2], element="Heal", _id=randint(1,1000))
+        return s
+    elif index == 8:
+        s = Item("Scroll of Cure Heavy Wounds", 200, 500, types[2], element="Heal", _id=randint(1,1000))
+        return s
+    elif index == 9:
+        s = Item("Scroll of Death", 15, 100, types[2], element="Death", _id=randint(1,1000))
+        return s
+    elif index == 10:
+        s = Item("Scroll of Sleep", 10, 20, types[2], element="Alter", _id=randint(1,1000))
+        return s
+    elif index == 11:
         s = Item("Scroll of Sleep Paralysis", 20, 50, types[2], element="Alter", _id=randint(1,1000))
         return s
 
