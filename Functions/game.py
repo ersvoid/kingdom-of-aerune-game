@@ -215,19 +215,24 @@ def enemy_turn(enemy, player):
         if (enemy.hp / enemy.maxhp) * 100 < 30:
             if not b_potions:
                 if enemy.items["weapon"].elem == "Magic":
-                    player.take_damage(a)
-                    print("The enemy has cast magic missile!")
+                    if player.reflex() >= enemy.will():
+                        print("You dodge the missile!")
+                    else:
+                        player.take_damage(a)
+                        print("The enemy has cast magic missile!")
                 elif enemy.items["weapon"].elem == "Fire":
-                    player.fire += 5
-                    player.take_damage(a)
-                    print("The player has caught on fire!")
+                    if player.reflex() >= enemy.will():
+                        print("You dodge the fire!")
+                    else:
+                        player.fire += 5
+                        player.take_damage(a)
+                        print("The player has caught on fire!")
                 elif enemy.items["weapon"].elem == "Alter":
-                    val = a
-                    if val > player.will():
+                    if player.fortitude() >= enemy.will():
+                        print("Enemy spell failed.")
+                    else:
                         player.sleep = True
                         print("The player has fallen asleep!")
-                    else:
-                        print("Enemy spell failed.")
                 elif enemy.items["weapon"].elem == "Death":
                     if enemy.will() > player.will():
                         player.hp = player.hp / 2
@@ -323,6 +328,7 @@ def battle(loc, player):
                 break
             player_turn(player, enemy)
     print("ROUND OVER!!!!")
+    player.magic_ac = 0
     if player.hp <= 0:
         print("You are dead.")
         return False
@@ -361,13 +367,13 @@ def game_screen(loc, char):
     print("{}. Compose Spell".format(num + 2))
     if char.lvl > 4:
         print("{}. Enchant Weapon".format(num + 3))
-    val = input("Choose one: ")
+    val = int(input("Choose one: "))
     while val == "":
         val = input("Choose one: ")
-    while not val.isdigit():
-        val = input("Choose one: ")
+    #while not val.isdigit():
+        #val = input("Choose one: ")
     else:
-        val = int(val) - 1
+        val -= 1
     while val < 0 or val > num + 2:
         val = int(input("Choose: "))
     else:
@@ -587,6 +593,7 @@ def compose(char):
 def run_village(player, town, shop, inn, house, hall, dungeon):
     global shop_on, inn_on, house_on, battle_on, hall_on, questing
     val = game_screen(town, player)
+    print(str(val))
     print("\n")
     if val == 0:
         shop_on = True
@@ -615,8 +622,8 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
             print("You are not strong enough yet!")
         else:
             enchant_weapon(player)
-    else:
-        int(input("Choose one: "))
+    #else:
+        #int(input("Choose one: "))
     while shop_on:
         shopping(shop, player)
     while inn_on:
