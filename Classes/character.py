@@ -31,10 +31,10 @@ class Character:
         self.magic = magic
         self.items = items
         self.rollover = rollover
-        self.maxhp = value_mod(self.con) + self.rollover
+        self.maxhp = self.lvl * (value_mod(self.con)) + self.rollover
         self.hp = self.maxhp
         self.rollover2 = rollover2
-        self.maxmp = value_mod(self.wis) + self.rollover2
+        self.maxmp = self.lvl * (value_mod(self.wis)) + self.rollover2
         self.mp = self.maxmp
         self.sleep = False
         self.fire = 0
@@ -128,12 +128,10 @@ class Character:
               "HP: ", self.hp, "/", self.maxhp, "\n",
               "MP: ", self.mp, "/", self.maxmp, "\n",
               "AC: ", self.ac_rating(), "\n",
-              "Strength: ", self.str, "\n",
-              "Intelligence: ", self.int, "\n",
-              "Dexterity: ", self.dex, "\n",
-              "Wisdom: ", self.wis, "\n",
-              "Charisma: ", self.cha, "\n",
-              "Constitution: ", self.con)
+              "Strength: +", self.get_str(), "\n",
+              "Dexterity: +", self.get_dex(), "\n",
+              "Wisdom: +", self.get_wis(), "\n",
+              "Constitution: +", self.get_con())
         print("You have a {} equipped.".format(self.items["weapon"].name))
         print("You are wearing {}.".format(self.items["armor"].name))
         print("You have {} gold pieces.".format(self.money))

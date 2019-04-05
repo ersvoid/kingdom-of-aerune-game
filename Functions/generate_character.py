@@ -84,12 +84,12 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
 def level_player(char):
     new_lvl = char.lvl + 1
     if char.prof == "Spellsword":
-        n_str = char.str + 0
+        n_str = char.str + 0.5
         n_int = char.int + 0
-        n_dex = char.dex + 0
+        n_dex = char.dex + 2
         n_wis = char.wis + 1
         n_cha = char.cha + 0
-        n_con = char.con + 2
+        n_con = char.con + 0.5
         n_rollover = char.maxhp + 10
         n_rollover2 = char.maxmp + 10
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
@@ -99,12 +99,12 @@ def level_player(char):
         new.quest = char.quest
         return new
     elif char.prof == "Warden":
-        n_str = char.str + 2
+        n_str = char.str + 1
         n_int = char.int + 0
-        n_dex = char.dex + 0
-        n_wis = char.wis + 0
+        n_dex = char.dex + 0.5
+        n_wis = char.wis + 0.5
         n_cha = char.cha + 0
-        n_con = char.con + 1
+        n_con = char.con + 2
         n_rollover = char.maxhp + 15
         n_rollover2 = char.maxmp + 5
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
@@ -114,12 +114,12 @@ def level_player(char):
         new.quest = char.quest
         return new
     elif char.prof == "Sorceror":
-        n_str = char.str + 0
+        n_str = char.str + 0.5
         n_int = char.int + 0
-        n_dex = char.dex + 1
+        n_dex = char.dex + 0.5
         n_wis = char.wis + 2
         n_cha = char.cha + 0
-        n_con = char.con + 0
+        n_con = char.con + 1
         n_rollover = char.maxhp + 5
         n_rollover2 = char.maxmp + 15
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
@@ -148,5 +148,5 @@ def check_xp(char):
 def random_bandit(char):
     lvl = char.lvl
     gold = 10 * lvl
-    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0]}, a=lvl, x="bandit")
+    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
     return band

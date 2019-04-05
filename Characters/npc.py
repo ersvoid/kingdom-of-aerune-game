@@ -21,11 +21,11 @@ town_pop = [mayor, blacksmith, innkeeper, armorsmith, npc_town1, npc_town2, npc_
 
 
 m_lst = [firebolt, heal]
-bandit_items = {"weapon": weapons[0], "armor":armors[0]}
-guard_items = {"weapon": weapons[2], "armor":armors[3]}
-leader_items = {"weapon": weapons[3],"potions": potions[0], "armor":armors[2]}
-troll_items = {"weapon": weapons[4], "potions": potions[0], "armor":armors[5]}
-wizard_items = {"weapon": staffs[1], "potions": potions[0], "elixirs": elixirs[0], "armor":armors[0]}
+bandit_items = {"weapon": weapons[0], "armor":armors[0], "items": "Nothing here"}
+guard_items = {"weapon": weapons[2], "armor":armors[3], "items": "Nothing here"}
+leader_items = {"weapon": weapons[3],"potions": potions[0], "armor":armors[2], "items": "Nothing here" }
+troll_items = {"weapon": weapons[4], "potions": potions[0], "armor":armors[5], "items": "Nothing here"}
+wizard_items = {"weapon": staffs[1], "potions": potions[0], "elixirs": elixirs[0], "armor":armors[0], "items": "Nothing here"}
 
 bandit1 = random_char(0, [], bandit_items, a=2, x="bandit")
 bandit2 = random_char(0, [], bandit_items, a=5, x="bandit")
