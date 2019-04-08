@@ -4,13 +4,14 @@ from Classes.magic import spells
 
 
 class Item:
-    def __init__(self, name, val, cost, _type, amount=1, element="None", _id="None"):
+    def __init__(self, name, val, cost, _type, amount=1, element="None", material="None", _id="None"):
         self.name = name
         self.val = val
         self.cost = cost
         self.type = _type
         self.amt = amount
         self.elem = element
+        self.mat = material
         self.id = _id
 
     def item_value(self):
@@ -42,8 +43,10 @@ class Item:
 # Generate items
 types = ["weapon", "potion", "scroll", "elixir", "staff", "quest", "armor"]
 elements = ["Fire", "Death", "Magic", "Alter", "Heal"]
+materials = ["Robe", "Leather", "Metal", "Metal Plate"]
 
 # Weapons type = type[0]
+staff = Item("Quarterstaff", 6, 10, types[4])
 short_sword = Item("Short Sword", 6, 10, types[0])
 long_sword = Item("Long Sword", 8, 100, types[0])
 bastard_sword = Item("Bastard Sword", 10, 200, types[0])
@@ -65,10 +68,10 @@ bastard_sword_death = Item("Bastard Sword of Death", 10, 200, types[0], element=
 great_sword_death = Item("Greatsword of Death", 12, 500, types[0], element="Death")
 great_axe_death = Item("Greataxe of Death", 16, 1000, types[0], element="Death")
 
-weapons = [short_sword, long_sword, bastard_sword, great_sword, great_axe]
-fire_weapons = [short_sword_fire, long_sword_fire, bastard_sword_fire, great_sword_fire, great_axe_fire]
-magic_weapons = [short_sword_magic, long_sword_magic, bastard_sword_magic, great_sword_magic, great_axe_magic]
-death_weapons = [short_sword_death, long_sword_death, bastard_sword_death, great_sword_death, great_axe_death]
+weapons = [staff, short_sword, long_sword, bastard_sword, great_sword, great_axe]
+fire_weapons = [staff, short_sword_fire, long_sword_fire, bastard_sword_fire, great_sword_fire, great_axe_fire]
+magic_weapons = [staff, short_sword_magic, long_sword_magic, bastard_sword_magic, great_sword_magic, great_axe_magic]
+death_weapons = [staff, short_sword_death, long_sword_death, bastard_sword_death, great_sword_death, great_axe_death]
 
 # Potions type = type[1]
 
@@ -135,22 +138,43 @@ staffs = [magic_staff, fire_staff, death_staff, sleep_staff]
 test_quest_item = Item("Quest Item", 0, 0, types[5])
 
 # Armor Items = type[6]
-padded = Item("Padded Armor", 0, 50, types[6])
-leather = Item("Leather Armor", 1, 100, types[6])
-studded = Item("Studded Leather Armor", 2, 150, types[6])
-chainshirt = Item("Chain Shirt", 3, 250, types[6])
-scale = Item("Scalemail", 4, 350, types[6])
-half = Item("Half Plate Armor", 5, 550, types[6])
-ring = Item("Ringmail", 6, 650, types[6])
-chain = Item("Chainmail", 7, 850, types[6])
-full = Item("Platemail", 8, 1150, types[6])
+robe = Item("Robe", 0, 50, types[6], element="None", material="Robe")
+robe_white = Item("White Robe", 10, 50, types[6], element="White", material="Robe")
+robe_red = Item("Red Robe", 5, 50, types[6], element="Red", material="Robe")
+robe_gold = Item("Gold Robe", 5, 50, types[6], element="Gold", material="Robe")
+robe_blue = Item("Blue Robe", 5, 50, types[6], element="Blue", material="Robe")
+leather = Item("Leather Armor", 1, 100, types[6], element="None", material="Leather")
+studded = Item("Studded Leather Armor", 2, 150, types[6], element="None", material="Leather")
+leather_white = Item("White Leather Armor", 11, 100, types[6], element="White", material="Leather")
+studded_white = Item("White Studded Leather Armor", 12, 150, types[6], element="White", material="Leather")
+leather_red = Item("Red Leather Armor", 6, 100, types[6], element="Red", material="Leather")
+studded_red = Item("Red Studded Leather Armor", 7, 150, types[6], element="Red", material="Leather")
+chainshirt = Item("Chain Shirt", 3, 250, types[6], element="None", material="Metal")
+scale = Item("Scalemail", 4, 350, types[6], element="None", material="Metal")
+chainshirt_white = Item("White Chain Shirt", 13, 250, types[6], element="White", material="Metal")
+scale_white = Item("White Scalemail", 14, 350, types[6], element="White", material="Metal")
+half = Item("Half Plate Armor", 5, 550, types[6], element="None", material="Metal Plate")
+half_white = Item("White Half Plate Armor", 15, 550, types[6], element="White", material="Metal Plate")
+half_gold = Item("Gold Half Plate Armor", 10, 550, types[6], element="Gold", material="Metal Plate")
+ring = Item("Ringmail", 6, 650, types[6], element="None", material="Metal")
+chain = Item("Chainmail", 7, 850, types[6], element="None", material="Metal")
+ring_white = Item("White Ringmail", 16, 650, types[6], element="White", material="Metal")
+chain_white = Item("White Chainmail", 17, 850, types[6], element="White", material="Metal")
+full = Item("Platemail", 8, 1150, types[6], element="None", material="Metal Plate")
+full_white = Item("White Platemail", 18, 1150, types[6], element="White", material="Metal Plate")
+full_gold = Item("Gold Platemail", 13, 1150, types[6], element="Gold", material="Metal Plate")
 
-armors = [padded, leather, studded, chainshirt, scale, half, ring, chain, full]
+armors = [robe, leather, studded, chainshirt, scale, half, ring, chain, full]
+white_armors = [robe_white, leather_white, studded_white, chainshirt_white, scale_white, half_white, ring_white,
+                chain_white, full_white]
+red_armors = [robe_red, leather_red, studded_red]
+gold_armors = [robe_gold, half_gold, full_gold]
+blue_armors = [robe_blue]
 
 # Starting Items by Character CLASS
 
-spellsword_inv = {"weapon": weapons[1], "items": [potions[0], scrolls[0]], "armor": armors[0]}
-warden_inv = {"weapon": weapons[1], "items": [potions[0]], "armor": armors[1]}
+spellsword_inv = {"weapon": weapons[1], "items": [potions[0], scrolls[0]], "armor": armors[1]}
+warden_inv = {"weapon": weapons[2], "items": [potions[0]], "armor": armors[1]}
 sorceror_inv = {"weapon": weapons[0], "items": [potions[0], elixirs[0], scrolls[0]], "armor": armors[0]}
 
 
@@ -263,6 +287,15 @@ def enchantment_check(char):
         return False
 
 
+def enchantment_check_armor(char):
+    armor = char.items["armor"]
+    try:
+        armors.index(armor)
+        return True
+    except ValueError:
+        return False
+
+
 def enchant_weapon(char):
     weapon = char.items["weapon"]
     _bool = enchantment_check(char)
@@ -292,6 +325,167 @@ def enchant_weapon(char):
         elif choice == 3:
             index = weapons.index(weapon)
             weapon = death_weapons[index]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 4:
+            return
+        else:
+            return
+
+
+def enchant_armor(char):
+    armor = char.items["armor"]
+    _bool = enchantment_check_armor(char)
+    if _bool:
+        if armor.mat == "Robe":
+            lst = ["White", "Red", "Gold", "Blue"]
+            c = 1
+            for l in lst:
+                print("{}. {}".format(c, l))
+                c += 1
+            print("{}. Never you mind.".format(c))
+            choice = input("Please select an enchantment: ")
+            while choice == "":
+                choice = input("'Well?'")
+            while not choice.isdigit():
+                choice = input("'Well?' ")
+            choice = int(choice)
+            if choice == 1:
+                index = armors.index(armor)
+                armor = white_armors[index]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 2:
+                #index = armors.index(armor)
+                armor = red_armors[0]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 3:
+                #index = armor.index(armor)
+                armor = gold_armors[0]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 4:
+                #index = armor.index(armor)
+                armor = blue_armors[0]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 5:
+                return
+            else:
+                return
+        elif armor.mat == "Leather":
+            lst = ["White", "Red"]
+            c = 1
+            for l in lst:
+                print("{}. {}".format(c, l))
+                c += 1
+            print("{}. Never you mind.".format(c))
+            choice = input("Please select an enchantment: ")
+            while choice == "":
+                choice = input("'Well?'")
+            while not choice.isdigit():
+                choice = input("'Well?' ")
+            choice = int(choice)
+            if choice == 1:
+                index = armors.index(armor)
+                armor = white_armors[index]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 2:
+                index = armors.index(armor)
+
+                armor = red_armors[index]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 3:
+                return
+            else:
+                return
+        elif armor.mat == "Metal":
+            lst = ["White"]
+            c = 1
+            for l in lst:
+                print("{}. {}".format(c, l))
+                c += 1
+            print("{}. Never you mind.".format(c))
+            choice = input("Please select an enchantment: ")
+            while choice == "":
+                choice = input("'Well?'")
+            while not choice.isdigit():
+                choice = input("'Well?' ")
+            choice = int(choice)
+            if choice == 1:
+                index = armors.index(armor)
+                armor = white_armors[index]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 2:
+                return
+            else:
+                return
+        elif armor.mat == "Metal Plate":
+            lst = ["White", "Gold"]
+            c = 1
+            for l in lst:
+                print("{}. {}".format(c, l))
+                c += 1
+            print("{}. Never you mind.".format(c))
+            choice = input("Please select an enchantment: ")
+            while choice == "":
+                choice = input("'Well?'")
+            while not choice.isdigit():
+                choice = input("'Well?' ")
+            choice = int(choice)
+            if choice == 1:
+                index = armors.index(armor)
+                armor = white_armors[index]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 2:
+                index = armors.index(armor)
+                if index == 5:
+                    armor = gold_armors[1]
+                elif index == 8:
+                    armor = gold_armors[2]
+                char.items["armor"] = armor
+                print("{}".format(char.items["armor"].name))
+            elif choice == 3:
+                return
+            else:
+                return
+
+
+def enchant_staff(char):
+    staff = char.items["weapon"]
+    _bool = enchantment_check(char)
+    if _bool:
+        lst = ["White", "Red", "Black", "Green"]
+        c = 1
+        for l in lst:
+            print("{}. {}".format(c, l))
+            c += 1
+        print("{}. Never you mind.".format(c))
+        choice = input("Please select an enchantment: ")
+        while choice == "":
+            choice = input("'Well?'")
+        while not choice.isdigit():
+            choice = input("'Well?' ")
+        choice = int(choice)
+        if choice == 1:
+            weapon = staffs[0]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 2:
+            weapon = staffs[1]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 3:
+            weapon = staffs[2]
+            char.items["weapon"] = weapon
+            print("{}".format(char.items["weapon"].name))
+        elif choice == 4:
+            weapon = staffs[3]
             char.items["weapon"] = weapon
             print("{}".format(char.items["weapon"].name))
         elif choice == 4:

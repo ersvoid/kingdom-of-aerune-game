@@ -1,6 +1,8 @@
 from Functions.generate_character import random_bandit, check_xp
 from Classes.maps import Location, shops
-from Classes.inventory import Item, display_shop_menu, player_choice, generate_scroll, enchant_weapon, enchantment_check
+from Classes.inventory import Item, display_shop_menu, player_choice, generate_scroll, enchant_weapon, enchant_armor, \
+    enchant_staff
+import math
 
 choices = ["1. Attack", "2. Magic", "3. Items", "4. Run"]
 
@@ -46,9 +48,32 @@ def fire_check(enemy):
         return enemy.fire
 
 
+def armor_enchant_check(player):
+    armor = player.items["armor"]
+    if armor.elem == "None":
+        fire_check(player)
+        print("Your armor smells.")
+    elif armor.elem == "White":
+        print("Your armor gleams in the sunlight.")
+        fire_check(player)
+    elif armor.elem == "Red":
+        print("Your armor gleams from within.")
+    elif armor.elem == "Gold":
+        fire_check(player)
+        player.heal(25)
+        print("Your armor is gold, dude.")
+    elif armor.elem == "Blue":
+        fire_check(player)
+        player.rest(25)
+        print("These robes be blue, son.")
+    else:
+        print("Something is wrong")
+
+
 def player_turn(player, enemy):
     if death(player) or death(enemy):
         return
+    armor_enchant_check(player)
     for c in choices:
         print(c)
     choice = input("'Well?' ")
@@ -59,11 +84,32 @@ def player_turn(player, enemy):
     choice = int(choice)
     if choice == 1:
         val = player.damage(enemy)
-        if val == 0:
-            print("You have missed!")
-        else:
-            print("You have attack for {} damage!".format(val))
-            enemy.take_damage(val)
+        if player.items["weapon"].type == "weapon":
+            if val == 0:
+                print("You have missed!")
+            else:
+                print("You have attacked for {} damage!".format(val))
+                enemy.take_damage(val)
+        elif player.items["weapon"].type == "staff":
+            if player.items["weapon"].elem == "Magic":
+                enemy.take_damage(val)
+            elif player.items["weapon"].elem == "Fire":
+                enemy.take_damage(val)
+                enemy.fire = 5
+            elif player.items["weapon"].elem == "Death":
+                enemy.take_damage(val)
+                if enemy.will() < player.will():
+                    enemy.hp = 0
+                    print("A black ray pierces the heart of your enemy...")
+            elif player.items["weapon"].elem == "Alter":
+                if enemy.will() >= player.will():
+                    print("Your opponent is unaffected by your spell.")
+                else:
+                    enemy.sleep = True
+                    print("The enemy is sleeping.")
+            else:
+                print("You have attacked for {} damage!".format(val))
+                enemy.take_damage(val)
     elif choice == 2:
         c = 1
         for m in player.magic:
@@ -86,12 +132,8 @@ def player_turn(player, enemy):
             player.take_mp(mana)
             if player.magic[choice].type == "attack":
                 if player.magic[choice].elem == "Fire":
-                    if player.lvl < 5:
-                        enemy.fire = 5
-                        enemy.take_damage(player.magic[choice].get_val())
-                    elif player.lvl >= 10:
-                        enemy.fire = 10
-                        enemy.take_damage(player.magic[choice].get_val()*4)
+                    enemy.fire = math.floor((2 * player.lvl) / 2)
+                    enemy.take_damage(math.floor(player.magic[choice].get_val() * (player.lvl / 4)))
                 elif player.magic[choice].elem == "Death":
                     if enemy.will() < player.will():
                         enemy.hp = 0
@@ -100,7 +142,8 @@ def player_turn(player, enemy):
                         print("A black ray shoots from your fingers...")
                         enemy.take_damage(player.magic[choice].get_val())
                 else:
-                    if player.lvl < 2:
+                    enemy.take_damage(math.floor(player.magic[choice].get_val()*(player.lvl / 2)))
+                    """if player.lvl < 2:
                         enemy.take_damage(player.magic[choice].get_val())
                     elif player.lvl < 4:
                         enemy.take_damage(player.magic[choice].get_val()*2)
@@ -109,7 +152,7 @@ def player_turn(player, enemy):
                     elif player.lvl < 8:
                         enemy.take_damage(player.magic[choice].get_val()*4)
                     elif player.lvl >= 10:
-                        enemy.take_damage(player.magic[choice].get_val()*5)
+                        enemy.take_damage(player.magic[choice].get_val()*5)"""
             elif player.magic[choice].type == "heal":
                 player.heal(player.magic[choice].get_val())
             elif player.magic[choice].type == "alter":
@@ -366,7 +409,11 @@ def game_screen(loc, char):
     print("{}. Patrol Town".format(num + 1))
     print("{}. Compose Spell".format(num + 2))
     if char.lvl > 4:
-        print("{}. Enchant Weapon".format(num + 3))
+        print("{}. Enchant Armor".format(num + 3))
+    if char.lvl > 6:
+        print("{}. Enchant Staff".format(num + 4))
+    if char.lvl > 8:
+        print("{}. Enchant Weapon".format(num + 5))
     val = int(input("Choose one: "))
     while val == "":
         val = input("Choose one: ")
@@ -374,7 +421,7 @@ def game_screen(loc, char):
         #val = input("Choose one: ")
     else:
         val -= 1
-    while val < 0 or val > num + 2:
+    while val < 0 or val > num + 5:
         val = int(input("Choose: "))
     else:
         return val
@@ -618,6 +665,10 @@ def run_village(player, town, shop, inn, house, hall, dungeon):
         compose(player)
         return False
     elif val == 8:
+        enchant_armor(player)
+    elif val == 9:
+        enchant_staff(player)
+    elif val == 10:
         if not player.lvl > 4:
             print("You are not strong enough yet!")
         else:
@@ -665,6 +716,8 @@ def dungeon_lvl(player):
         return 8
     elif player.quest < 20:
         return 9
+    else:
+        return 10
 
 
 def game_stage(player, towns, shops, inns, houses, halls, dungeons):

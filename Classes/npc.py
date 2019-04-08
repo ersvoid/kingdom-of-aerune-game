@@ -26,7 +26,7 @@ class NPC:
             return
         item = self.items[choice]
         if char.money >= item.cost:
-            if item.type == "weapon":
+            if item.type == "weapon" or item.type == "staff":
                 print("You can only have one weapon at a time.")
                 print("Do you want to trade weapons?")
                 print("1. Yes")

@@ -21,7 +21,7 @@ town_pop = [mayor, blacksmith, innkeeper, armorsmith, npc_town1, npc_town2, npc_
 
 
 m_lst = [firebolt, heal]
-bandit_items = {"weapon": weapons[0], "armor":armors[0], "items": "Nothing here"}
+bandit_items = {"weapon": weapons[1], "armor":armors[0], "items": "Nothing here"}
 guard_items = {"weapon": weapons[2], "armor":armors[3], "items": "Nothing here"}
 leader_items = {"weapon": weapons[3],"potions": potions[0], "armor":armors[2], "items": "Nothing here" }
 troll_items = {"weapon": weapons[4], "potions": potions[0], "armor":armors[5], "items": "Nothing here"}

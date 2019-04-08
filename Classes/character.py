@@ -31,10 +31,10 @@ class Character:
         self.magic = magic
         self.items = items
         self.rollover = rollover
-        self.maxhp = self.lvl * (value_mod(self.con)) + self.rollover
+        self.maxhp = self.rollover + value_mod(self.con) + (self.lvl - 1) * (randint(0, self.rollover) + value_mod(self.con))
         self.hp = self.maxhp
         self.rollover2 = rollover2
-        self.maxmp = self.lvl * (value_mod(self.wis)) + self.rollover2
+        self.maxmp = self.rollover2 + value_mod(self.wis) + (self.lvl - 1) * (randint(0, self.rollover2) + value_mod(self.wis))
         self.mp = self.maxmp
         self.sleep = False
         self.fire = 0
@@ -125,6 +125,7 @@ class Character:
     def display_stats(self):
         print("Name: ", self.name, "\n",
               "Class: ", self.prof, "\n",
+              "Level: ", self.lvl, "\n",
               "HP: ", self.hp, "/", self.maxhp, "\n",
               "MP: ", self.mp, "/", self.maxmp, "\n",
               "AC: ", self.ac_rating(), "\n",
@@ -152,7 +153,7 @@ class Character:
         if self.items["weapon"].type == "weapon":
             val = randint(1, self.items["weapon"].item_value()) + self.get_str()
             if val < 0:
-                return 0
+                return 1
             else:
                 if self.items["weapon"].elem == "Magic":
                     if self.attack() + 5 > enemy.ac_rating():
@@ -166,17 +167,21 @@ class Character:
                     else:
                         return 0
                 elif self.items["weapon"].elem == "Death":
-                    if enemy.will() < self.will():
-                        a = enemy.hp % 2
-                        return val + a
+                    if self.attack() + 5 > enemy.ac_rating():
+                        if enemy.will() < self.will():
+                            a = enemy.hp % 2
+                            return val + a
+                        else:
+                            return val
                     else:
-                        return val
+                        return 0
                 else:
                     if self.attack() > enemy.ac_rating():
                         return val
                     else:
                         return 0
         elif self.items["weapon"].type == "staff":
+            print("STAFF DAMAGE")
             if self.items["weapon"].elem == "Magic":
                 return 10
             elif self.items["weapon"].elem == "Fire":
@@ -185,6 +190,8 @@ class Character:
                 return 15
             elif self.items["weapon"].elem == "Alter":
                 return self.will()
+            else:
+                return randint(1, self.items["weapon"].item_value()) + self.get_str()
 
     def reset(self):
         self.hp = self.maxhp
@@ -209,28 +216,47 @@ class Character:
         if val == 0:
             self.prof = "Spellsword"
             self.wis = 12
-            self.con = 12
+            self.dex = 12
             self.magic = sword_magic
             self.items = spellsword_inv
-            self.maxmp = 15
-            self.mp = 15
-            self.maxhp = 15
-            self.hp = 15
+            self.rollover = 10
+            self.rollover2 = 10
+            self.maxhp = self.rollover + value_mod(self.con) + (self.lvl - 1) * (
+                        randint(0, self.rollover) + value_mod(self.con))
+            self.hp = self.maxhp
+            self.maxmp = self.rollover2 + value_mod(self.wis) + (self.lvl - 1) * (
+                        randint(0, self.rollover2) + value_mod(self.wis))
+            self.mp = self.maxmp
+            self.reset()
         elif val == 1:
             self.prof = "Warden"
             self.str = 12
             self.con = 12
             self.magic = ward_magic
             self.items = warden_inv
-            self.maxhp = 20
-            self.hp = 20
+            self.rollover = 12
+            self.rollover2 = 8
+            self.maxhp = self.rollover + value_mod(self.con) + (self.lvl - 1) * (
+                        randint(0, self.rollover) + value_mod(self.con))
+            self.hp = self.maxhp
+            self.maxmp = self.rollover2 + value_mod(self.wis) + (self.lvl - 1) * (
+                        randint(0, self.rollover2) + value_mod(self.wis))
+            self.mp = self.maxmp
+            self.reset()
         elif val == 2:
             self.prof = "Sorceror"
             self.wis = 12
-            self.dex = 12
+            self.con = 12
             self.magic = sorce_magic
             self.items = sorceror_inv
-            self.maxmp = 20
-            self.mp = 20
+            self.rollover = 8
+            self.rollover2 = 12
+            self.maxhp = self.rollover + value_mod(self.con) + (self.lvl - 1) * (
+                        randint(0, self.rollover) + value_mod(self.con))
+            self.hp = self.maxhp
+            self.maxmp = self.rollover2 + value_mod(self.wis) + (self.lvl - 1) * (
+                        randint(0, self.rollover2) + value_mod(self.wis))
+            self.mp = self.maxmp
+            self.reset()
         print("You were trained to be a {}!".format(self.prof))
         return self.prof

@@ -227,12 +227,14 @@ q9_o1 = "You have killed the wizard!"
 q9_o2 = "You begin the walk back to the village."
 q9_dung = Location("Wizard's Tower Sanctuary", "d9", d9_intro, wizards, [], q9_i1, q9_i2, q9_i3, q9_o1, q9_o2)
 
+last_dung = Location("Last Dungeon", "d10", d9_intro, wizards, [], q9_i1, q9_i2, q9_i3, q9_o1, q9_o2)
+
 towns = [t0_town, t1_town]
 shops = [s0_shop, s1_shop]
 inns = [i0_inn]
 houses = [h0_house]
 halls = [h1_hall]
-dungeons = [q0_dung, q1_dung, q2_dung, q3_dung, q4_dung, q5_dung, q6_dung, q7_dung, q8_dung, q9_dung]
+dungeons = [q0_dung, q1_dung, q2_dung, q3_dung, q4_dung, q5_dung, q6_dung, q7_dung, q8_dung, q9_dung, last_dung]
 
 camp_intro = "You decide to stop and make camp. It is almost night by the time you are done."
 c1_i1 = ""

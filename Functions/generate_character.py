@@ -74,7 +74,7 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
     r_wis = randint(b, c)
     r_cha = randint(b, c)
     r_con = randint(b, c)
-    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, gold, lvl=a, _id=x)
+    rand_char = Character(char_name, r_str, r_int, r_dex, r_wis, r_cha, r_con, m, w, money=gold, lvl=a, _id=x)
     rand_char.get_xp(5 * a)
     return rand_char
 
@@ -84,47 +84,38 @@ def random_char(gold, m, w, x, a=1, b=8, c=12):
 def level_player(char):
     new_lvl = char.lvl + 1
     if char.prof == "Spellsword":
-        n_str = char.str + 0.5
+        n_str = char.str + 0.25
         n_int = char.int + 0
-        n_dex = char.dex + 2
-        n_wis = char.wis + 1
+        n_dex = char.dex + 1
+        n_wis = char.wis + 0.5
         n_cha = char.cha + 0
-        n_con = char.con + 0.5
-        n_rollover = char.maxhp + 10
-        n_rollover2 = char.maxmp + 10
+        n_con = char.con + 0.25
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
-                        rollover=n_rollover,
-                        rollover2=n_rollover2, money=char.money,
+                        money=char.money,
                         lvl=new_lvl, prof="Spellsword")
         new.quest = char.quest
         return new
     elif char.prof == "Warden":
-        n_str = char.str + 1
+        n_str = char.str + 0.5
         n_int = char.int + 0
-        n_dex = char.dex + 0.5
-        n_wis = char.wis + 0.5
+        n_dex = char.dex + 0.25
+        n_wis = char.wis + 0.25
         n_cha = char.cha + 0
-        n_con = char.con + 2
-        n_rollover = char.maxhp + 15
-        n_rollover2 = char.maxmp + 5
+        n_con = char.con + 1
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
-                        rollover=n_rollover,
-                        rollover2=n_rollover2, money=char.money,
+                        money=char.money,
                         lvl=new_lvl, prof="Warden")
         new.quest = char.quest
         return new
     elif char.prof == "Sorceror":
-        n_str = char.str + 0.5
+        n_str = char.str + 0.25
         n_int = char.int + 0
-        n_dex = char.dex + 0.5
-        n_wis = char.wis + 2
+        n_dex = char.dex + 0.25
+        n_wis = char.wis + 1
         n_cha = char.cha + 0
-        n_con = char.con + 1
-        n_rollover = char.maxhp + 5
-        n_rollover2 = char.maxmp + 15
+        n_con = char.con + 0.5
         new = Character(char.name, n_str, n_int, n_dex, n_wis, n_cha, n_con, char.magic, char.items,
-                        rollover=n_rollover,
-                        rollover2=n_rollover2, money=char.money,
+                        money=char.money,
                         lvl=new_lvl, prof="Sorceror")
         new.quest = char.quest
         return new
@@ -148,5 +139,5 @@ def check_xp(char):
 def random_bandit(char):
     lvl = char.lvl
     gold = 10 * lvl
-    band = random_char(gold, [], {"weapon":weapons[0], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
+    band = random_char(gold, [], {"weapon":weapons[1], "armor":armors[0], "items": potions[0]}, a=lvl, x="bandit")
     return band
